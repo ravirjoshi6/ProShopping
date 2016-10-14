@@ -29,7 +29,7 @@ class Api extends CI_Controller {
 		if(!isset($userData['contactNo'])){
 			$error [] = 'contactNo';
 		}
-		if(!isset($userData['password']) && !strcmp($userData['password'], $userData['confirm_password']) ){
+		if(!isset($userData['password'])){
 			$error [] = 'password';
 		}
 		if(empty($error)){
@@ -40,5 +40,23 @@ class Api extends CI_Controller {
 		echo json_encode($result);
 		exit;
 		
+	}
+	public function login(){
+		$userData = $this->input->post ();
+		$error = array();
+		$result = array();
+		if(!isset($userData['email'])){
+			$error [] = 'email';
+		}
+		if(!isset($userData['password'])){
+			$error [] = 'password';
+		}
+		if(empty($error)){
+			$result['id']=$this->Api_model->checkLogin($userData['email'], $userData['password']);
+		}else{
+			$result['error'] = $error;
+		}
+		echo json_encode($result);
+		exit;
 	}
 }

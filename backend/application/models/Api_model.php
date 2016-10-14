@@ -22,13 +22,13 @@ class Api_model extends CI_Model {
 	
 	function checkLogin($email,$password){
 		$this->db->where('email',$email);
-		$this->db->where('password',$password);
-		$query = $this->db->get('user_master');
+		$this->db->where('password',md5($password));
+		$query = $this->db->get('userdetails');
 		$rowcount = $query->num_rows();
 
 		if($rowcount == 1){
 			$ret = $query->row();
-			return $ret->id;
+			return $ret->userid;
 		}else{
 			return 'notfound';
 		}
