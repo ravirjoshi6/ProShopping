@@ -1,0 +1,9 @@
+{
+  "name": "proshoping",
+  "version": "1.0.0",
+  "description": "Proshopping build & buy e-commerce.",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "^2.0.0"
+  }
+}
