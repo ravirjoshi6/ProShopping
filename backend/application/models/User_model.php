@@ -33,6 +33,7 @@ class User_model extends CI_Model {
 			$result['status'] = true;
 			$result['id'] = $ret->user_id;
 		} else {
+			$result['msg'] = 'User not found';
 			$result['status'] = FALSE;
 		}
 		return $result;

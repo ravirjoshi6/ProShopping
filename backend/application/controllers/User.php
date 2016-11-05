@@ -49,7 +49,7 @@ class User extends CI_Controller {
 			$error [] = 'password';
 		}
 		if (empty ( $error )) {
-			$result ['id'] = $this->User_model->checkLogin ( $userData ['email'], $userData ['password'] );
+			$result = $this->User_model->checkLogin ( $userData ['email'], $userData ['password'] );
 		} else {
 			$result ['error'] = $error;
 		}
