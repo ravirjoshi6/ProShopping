@@ -186,7 +186,7 @@ class User extends CI_Controller {
 				$this->email->to($post['email']);
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('User request for retrive password');
-				$msg = 'Hi '.$user['firstname']. '<br> Please use below password to login.<br> password :'. $this->randomPassword();
+				$msg = 'Hi '.$user->firstname. '<br> Please use below password to login.<br> password :'. $this->randomPassword();
 				$this->email->message($msg);
 				
 				$this->email->send();
