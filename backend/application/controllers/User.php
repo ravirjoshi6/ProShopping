@@ -11,7 +11,7 @@ class User extends CI_Controller {
 		
 	}
 	public function index() {
-		$this->load->view ( 'welcome_message' );
+		//$this->load->view ( 'welcome_message' );
 	}
 	public function create() {
 		$userData = $this->input->post ();
@@ -136,22 +136,70 @@ class User extends CI_Controller {
 	public function getUsers(){
 		$users= $this->User_model->getUsers();
 		echo json_encode($users);
+		exit;
 	}
 	
-	public function getUserById(){
+	public function getUserDetails(){
 		$post = $this->input->post();
-		$result= array();
+		$result = array();
+		if(!isset($post['email'])){
+			$result['msg'] = 'User email not found';
+		}else{
+			$result = $this->User_model->getUserDetails($post['email']);
+		}
+		echo json_encode($result);
+		exit;
+	}
+	
+	public function changePassword(){
+		$post = $this->input->post();
+		$result = array();
 		$error = array();
 		if(!isset($post['email'])){
-			$error[] = 'id';
+			$error[] = 'email';
+		}
+		if(!isset($post['password'])){
+			$error[]  = 'password';
+		}
+		if(empty($error)){
+			$result = $this->User_model->changePassword($post['email'], $post['password']);
+		}else{
 			$result['status'] = false;
-			$result['error'] = $error;
+			$result['missing_fields'] = $error;
+			$result['msg'] = 'Missing or invalid data.';
 		}
-		else{
-			$result['status'] = true;
-			$result['data'] = $this->User_model->getUserById($post['email']);
+		echo json_encode($result);exit;
+	}
+	
+	public function forgotPassword(){
+		$post = $this->input->post();
+		$result = array();
+		$error = array();
+		if(!isset($post['email'])){
+			$error[] = 'email';
 		}
-		
-		echo json_encode($result);
+		if(empty($error)){
+			$result = $this->User_model->getUserById($post['email']);
+			if(!empty($result)){
+				$this->load->library('email');
+				$this->email->from('no-reply@proshopping.com', 'ecom proshop');
+				$this->email->to($post['email']);
+				$this->email->bcc('nrupen92@gmail.com');
+				$this->email->subject('User request for retrive password');
+				$this->email->message('Testing the email class.');
+				
+				$this->email->send();
+				$result['status'] = TRUE;
+				$result['msg'] = 'Email sent for instruction.';
+			}else{
+				$result['status'] = FALSE;
+				$result['msg'] = 'User not found';
+			}
+		}else{
+			$result['status'] = false;
+			$result['missing_fields'] = $error;
+			$result['msg'] = 'Missing or invalid data.';
+		}
+		echo json_encode($result);exit;
 	}
 }
