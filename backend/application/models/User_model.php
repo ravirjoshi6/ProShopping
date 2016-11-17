@@ -20,18 +20,20 @@ class User_model extends CI_Model {
 	 * 
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	function checkLogin($email, $password, $role= 'normal') {
+	function checkLogin($email, $password) {
 		$result = array();
-		$roleId= $this->getUserRoleId($role);
+		$this->db->select('user.user_id, user_roles.role_name');
 		$this->db->where ( 'email', $email );
 		$this->db->where ( 'password', md5 ( $password ) );
-		$this->db->where ( 'userRole', $roleId);
+		$this->db->join('user_roles','user.userRole = user_roles.role_id');
+		//$this->db->where ( 'userRole', $roleId);
 		$query = $this->db->get ( 'user' );
 		$rowcount = $query->num_rows ();
 		if ($rowcount == 1) {
 			$ret = $query->row ();
 			$result['status'] = true;
 			$result['id'] = $ret->user_id;
+			$result['userRole'] = $ret->role_name;
 		} else {
 			$result['msg'] = 'User not found';
 			$result['status'] = FALSE;
