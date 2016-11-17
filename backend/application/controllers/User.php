@@ -133,4 +133,25 @@ class User extends CI_Controller {
 		echo json_encode ( $result );
 		exit ();
 	}
+	public function getUsers(){
+		$users= $this->User_model->getUsers();
+		echo json_encode($users);
+	}
+	
+	public function getUserById(){
+		$post = $this->input->post();
+		$result= array();
+		$error = array();
+		if(!isset($post['email'])){
+			$error[] = 'id';
+			$result['status'] = false;
+			$result['error'] = $error;
+		}
+		else{
+			$result['status'] = true;
+			$result['data'] = $this->User_model->getUserById($post['email']);
+		}
+		
+		echo json_encode($result);
+	}
 }
