@@ -44,6 +44,7 @@ class User extends CI_Controller {
 				$encrypt_email = $this->encrypt($userData['email'], ENCRYPTION_KEY);
 				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.$encrypt_email.'  </body></htmml>';
 				$this->email->message($msg);
+				$this->email->send();
 			} else {
 				$result ['msg'] = 'User Already Exists';
 				$result ['status'] = false;
@@ -184,7 +185,7 @@ class User extends CI_Controller {
 	}
 	
 	public function forgotPassword(){
-		$post = $this->input->post();
+		$post = $this->input->`post();
 		$result = array();
 		$error = array();
 		if(!isset($post['email'])){
