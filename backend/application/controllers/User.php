@@ -185,7 +185,7 @@ class User extends CI_Controller {
 	}
 	
 	public function forgotPassword(){
-		$post = $this->input->`post();
+		$post = $this->input->post();
 		$result = array();
 		$error = array();
 		if(!isset($post['email'])){
