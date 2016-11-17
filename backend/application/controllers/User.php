@@ -179,14 +179,15 @@ class User extends CI_Controller {
 			$error[] = 'email';
 		}
 		if(empty($error)){
-			$result = $this->User_model->getUserById($post['email']);
-			if(!empty($result)){
+			$user = $this->User_model->getUserById($post['email']);
+			if(!empty($user)){
 				$this->load->library('email');
 				$this->email->from('no-reply@proshopping.com', 'ecom proshop');
 				$this->email->to($post['email']);
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('User request for retrive password');
-				$this->email->message('Testing the email class.');
+				$msg = 'Hi '.$user['firstname']. '<br> Please use below password to login.<br> password :'. $this->randomPassword();
+				$this->email->message($msg);
 				
 				$this->email->send();
 				$result['status'] = TRUE;
@@ -201,5 +202,15 @@ class User extends CI_Controller {
 			$result['msg'] = 'Missing or invalid data.';
 		}
 		echo json_encode($result);exit;
+	}
+	function randomPassword() {
+		$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+		$pass = array(); //remember to declare $pass as an array
+		$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+		for ($i = 0; $i < 8; $i++) {
+			$n = rand(0, $alphaLength);
+			$pass[] = $alphabet[$n];
+		}
+		return implode($pass); //turn the array into a string
 	}
 }
