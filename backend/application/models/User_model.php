@@ -71,10 +71,10 @@ class User_model extends CI_Model {
 		$rowcount = $query->num_rows ();
 		if ($rowcount > 0) {
 			$return = $query->row ();
-			// $return->status = true;
+			$return->status = true;
 		} else {
 			$return = new stdClass ();
-			// $return->status = false;
+			$return->status = false;
 		}
 		return $return;
 	}

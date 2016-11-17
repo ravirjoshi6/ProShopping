@@ -38,10 +38,10 @@ class User extends CI_Controller {
 				$this->email->set_header('MIME-VErsion', '1.0');
 				$this->email->set_header('Content-type', 'text/html; charset=UTF-8');
 				$this->email->from('no-reply@proshopping.com', 'ecom proshop');
-				$this->email->to($post['email']);
+				$this->email->to($userData['email']);
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('Wel come to Proshop');
-				$encrypt_email = $this->encrypt($userData['email'], ENCRYPTION_KEY)
+				$encrypt_email = $this->encrypt($userData['email'], ENCRYPTION_KEY);
 				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.$encrypt_email.'  </body></htmml>';
 				$this->email->message($msg);
 			} else {
