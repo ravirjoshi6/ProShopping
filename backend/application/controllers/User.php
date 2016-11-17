@@ -191,7 +191,7 @@ class User extends CI_Controller {
 				$this->email->subject('User request to Retrive password');
 				$new_password = $this->randomPassword();
 				$this->User_model->changePassword($user->email, $new_password);
-				$msg = '<html>Hi '.$user->firstname. '<br> Please use below password to login.<br> password :'. $this->randomPassword(). '</body></htmml>';
+				$msg = '<html>Hi '.$user->firstname. '<br> Please use below password to login.<br> password :'.$new_password. '</body></htmml>';
 				$this->email->message($msg);
 				$this->email->send();
 				$result['status'] = TRUE;
