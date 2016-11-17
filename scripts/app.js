@@ -9,6 +9,10 @@
                     templateUrl: "/scripts/views/index.html",
                     controller: "HomeController"
                 })
+                .when("/home", {
+                    templateUrl: "/scripts/views/account.html",
+                    controller: "AccountController"
+                })
              .when("/login", {
                  templateUrl: "/scripts/views/login.html",
                  controller: "LoginController"
