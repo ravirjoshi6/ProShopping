@@ -190,9 +190,9 @@ class User extends CI_Controller {
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('User request to Retrive password');
 				$new_password = $this->randomPassword();
+				$this->User_model->changePassword($user->email, $new_password);
 				$msg = '<html>Hi '.$user->firstname. '<br> Please use below password to login.<br> password :'. $this->randomPassword(). '</body></htmml>';
 				$this->email->message($msg);
-				$this->User_model->changePassword($user->email, $new_password);
 				$this->email->send();
 				$result['status'] = TRUE;
 				$result['msg'] = 'Email sent for instruction.';
