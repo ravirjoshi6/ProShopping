@@ -6,7 +6,7 @@
         $locationProvider.html5Mode(true);
         $routeProvider
                 .when("/", {
-                    templateUrl: "scripts/views/index.html",
+                    templateUrl: "/scripts/views/index.html",
                     controller: "HomeController"
                 })
              .when("/login", {
