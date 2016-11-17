@@ -149,7 +149,7 @@ class User_model extends CI_Model {
 		$this->db->where('email', $email);
 		$user= $this->getUserById($email);
 		if(!empty($user)){
-			$this->db->update('user', array('emailVarificationStatus', 'verified'));
+			$this->db->update('user', array('emailVarificationStatus'=> 'verified'));
 			return array('status' => TRUE, 'msg' => 'User varified successfully.');
 		}else{
 			return array('status' => FALSE, 'msg' => 'User not found.');
