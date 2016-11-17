@@ -42,7 +42,7 @@ class User extends CI_Controller {
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('Wel come to Proshop');
 				$encrypt_email = $this->encrypt($userData['email'], ENCRYPTION_KEY)
-				$msg = '<html>Hi '.$userData['firstname']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.$encrypt_email.'  </body></htmml>';
+				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.$encrypt_email.'  </body></htmml>';
 				$this->email->message($msg);
 			} else {
 				$result ['msg'] = 'User Already Exists';
