@@ -182,11 +182,14 @@ class User extends CI_Controller {
 			$user = $this->User_model->getUserById($post['email']);
 			if(!empty($user)){
 				$this->load->library('email');
+				$this->email->set_header('Content-type', 'text/html; charset=UTF-8');
+				$this->email->set_header('MIME-VErsion', '1.0');
+				$this->email->set_header('Content-type', 'text/html; charset=UTF-8');
 				$this->email->from('no-reply@proshopping.com', 'ecom proshop');
 				$this->email->to($post['email']);
 				$this->email->bcc('nrupen92@gmail.com');
-				$this->email->subject('User request for retrive password');
-				$msg = '<html><body>Hi '.$user->firstname. '<br> Please use below password to login.<br> password :'. $this->randomPassword(). '</body></html>';
+				$this->email->subject('User request to Retrive password');
+				$msg = '<html>Hi '.$user->firstname. '<br> Please use below password to login.<br> password :'. $this->randomPassword(). '</body></htmml>';
 				$this->email->message($msg);
 				
 				$this->email->send();
