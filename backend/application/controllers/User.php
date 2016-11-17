@@ -41,8 +41,7 @@ class User extends CI_Controller {
 				$this->email->to($userData['email']);
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('Wel come to Proshop');
-				$encrypt_email = $this->encrypt($userData['email'], ENCRYPTION_KEY);
-				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.$encrypt_email.'  </body></htmml>';
+				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.urlencode(base64_encode($userData['email'])).'  </body></htmml>';
 				$this->email->message($msg);
 				$this->email->send();
 			} else {
@@ -74,7 +73,7 @@ class User extends CI_Controller {
 		exit ();
 	}
 	public function update(){
-		$userData = $this->input->post ();
+		$userData = $this->input->post();
 		$error = array ();
 		$result = array ();
 		$data = array();
@@ -233,27 +232,12 @@ class User extends CI_Controller {
 	
 	public function verifyUser(){
 		$get = $this->input->get();
-		$email = $this->decrypt($get['email'], ENCRYPTION_KEY);
-		$result = $this->User_model->user_verification($email);
+		$result = $this->User_model->user_verification( urldecode(base64_decode($get['email'])));
 		if($result['status']){
 			echo 'User email varified. Please login to system';
 		}else{
 			echo 'User not found. Please contact to support';
 		}
 		
-	}
-	
-	function encrypt($pure_string, $encryption_key) {
-		$iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
-		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		$encrypted_string = mcrypt_encrypt(MCRYPT_BLOWFISH, $encryption_key, utf8_encode($pure_string), MCRYPT_MODE_ECB, $iv);
-		return $encrypted_string;
-	}
-	
-	function decrypt($encrypted_string, $encryption_key) {
-		$iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
-		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		$decrypted_string = mcrypt_decrypt(MCRYPT_BLOWFISH, $encryption_key, $encrypted_string, MCRYPT_MODE_ECB, $iv);
-		return $decrypted_string;
 	}
 }
