@@ -63,16 +63,18 @@ class User_model extends CI_Model {
 		$user_id = $this->db->insert_id ();
 		return $user_id;
 	}
-	function getUserById($user_id) {
-		$this->db->where ( 'email', $user_id );
+	function getUserById($email_id) {
+		$this->db->select('user.user_id, user.firstname, user.lastname, user.email, user_roles.role_name');
+		$this->db->where ( 'email', $email_id );
+		$this->db->join('user_roles','user.userRole = user_roles.role_id');
 		$query = $this->db->get ( 'user' );
 		$rowcount = $query->num_rows ();
 		if ($rowcount > 0) {
 			$return = $query->row ();
-			$return->status = true;
+			//$return->status = true;
 		} else {
 			$return = new stdClass();
-			$return->status = false;
+			//$return->status = false;
 		}
 		return $return;
 	}
@@ -112,5 +114,14 @@ class User_model extends CI_Model {
 			return $query->row()->role_id;
 		}
 	}
-	
+	public function getUsers(){
+		$query = $this->db->get ('user');
+		$user = array();
+		
+		foreach($query->result() as $row){
+			$user[] = $row;
+		}
+		return $user;
+	}
+
 }
