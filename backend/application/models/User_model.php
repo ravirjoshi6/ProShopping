@@ -24,6 +24,7 @@ class User_model extends CI_Model {
 		$this->db->select ( 'user.user_id, user_roles.role_name' );
 		$this->db->where ( 'email', $email );
 		$this->db->where ( 'password', md5 ( $password ) );
+		$this->db->where ( 'emailVarificationStatus', 'verified' );
 		$this->db->join ( 'user_roles', 'user.userRole = user_roles.role_id' );
 		// $this->db->where ( 'userRole', $roleId);
 		$query = $this->db->get ( 'user' );
@@ -142,5 +143,18 @@ class User_model extends CI_Model {
 		$this->db->where ( 'email', $email );
 		$this->db->update ( 'user', array('password'=>md5($password)) );
 		return array('status' => TRUE, 'msg' => 'Password changed successfully.');
+	}
+	
+	public function user_verification($email){
+		$this->db->where('email', $email);
+		$user= $this->getUserById($email);
+		if(!empty($user)){
+			$this->db->update('user', array('emailVarificationStatus', 'verified'));
+			return array('status' => TRUE, 'msg' => 'User varified successfully.');
+		}else{
+			return array('status' => FALSE, 'msg' => 'User not found.');
+		}
+		
+		
 	}
 }

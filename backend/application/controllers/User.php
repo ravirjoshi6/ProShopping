@@ -8,6 +8,7 @@ class User extends CI_Controller {
 		header('Access-Control-Allow-Origin: *');
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		header('Access-Control-Allow-Methods: GET, POST, PUT');
+		define("ENCRYPTION_KEY", "itsSecret!");
 		
 	}
 	public function index() {
@@ -32,6 +33,17 @@ class User extends CI_Controller {
 		if (empty ( $error )) {
 			if (! $this->User_model->getUserById ( $userData ['email'] )->status) {
 				$result = $this->User_model->saveUser ( $userData );
+				$this->load->library('email');
+				$this->email->set_header('Content-type', 'text/html; charset=UTF-8');
+				$this->email->set_header('MIME-VErsion', '1.0');
+				$this->email->set_header('Content-type', 'text/html; charset=UTF-8');
+				$this->email->from('no-reply@proshopping.com', 'ecom proshop');
+				$this->email->to($post['email']);
+				$this->email->bcc('nrupen92@gmail.com');
+				$this->email->subject('Wel come to Proshop');
+				$encrypt_email = $this->encrypt($userData['email'], ENCRYPTION_KEY)
+				$msg = '<html>Hi '.$userData['firstname']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.$encrypt_email.'  </body></htmml>';
+				$this->email->message($msg);
 			} else {
 				$result ['msg'] = 'User Already Exists';
 				$result ['status'] = false;
@@ -216,5 +228,31 @@ class User extends CI_Controller {
 			$pass[] = $alphabet[$n];
 		}
 		return implode($pass); //turn the array into a string
+	}
+	
+	public function verifyUser(){
+		$get = $this->input->get();
+		$email = $this->decrypt($get['email'], ENCRYPTION_KEY);
+		$result = $this->User_model->user_verification($email);
+		if($result['status']){
+			echo 'User email varified. Please login to system';
+		}else{
+			echo 'User not found. Please contact to support';
+		}
+		
+	}
+	
+	function encrypt($pure_string, $encryption_key) {
+		$iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
+		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+		$encrypted_string = mcrypt_encrypt(MCRYPT_BLOWFISH, $encryption_key, utf8_encode($pure_string), MCRYPT_MODE_ECB, $iv);
+		return $encrypted_string;
+	}
+	
+	function decrypt($encrypted_string, $encryption_key) {
+		$iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
+		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+		$decrypted_string = mcrypt_decrypt(MCRYPT_BLOWFISH, $encryption_key, $encrypted_string, MCRYPT_MODE_ECB, $iv);
+		return $decrypted_string;
 	}
 }
