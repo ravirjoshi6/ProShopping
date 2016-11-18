@@ -22,14 +22,15 @@ class Product extends CI_Controller {
 		$config['allowed_types']        = 'gif|jpg|png';
 
 		$this->load->library('upload', $config);
-		$this->upload->do_upload("imageFile");
+		$this->upload->initialize($config);
 		
-		if($this->upload->do_upload())
+// 		echo "<pre>";print_r($_FILES);exit;
+		if($this->upload->do_upload("imageFile"))
 		{
 			$data = array('upload_data' => $this->upload->data());
 			$userData['productImage'] = $data['upload_data']['file_name'];
 		}else{
-			$error[] = array('error' => $this->upload->display_errors());
+			$error[] = $this->upload->display_errors();
 		}
 		if (! isset ( $userData ['product_name'] )) {
 			$error [] = 'product';

@@ -33,12 +33,11 @@ class Product_model extends CI_Model {
 					'productImage' => $product['productImage'],
 			);
 			
-			if($user['is_active']== 'true'){
-				$data['isActive'] = TRUE;
+			if($product['is_active']== 'true' || $product['is_active']){
+				$data['isActive'] = 1;
 			}else{
-				$data['isActive'] = FALSE;
+				$data['isActive'] = 0;
 			}
-			
 			$this->db->insert ( 'product', $data );
 			$result['product_id'] = $this->db->insert_id ();
 			$result['status'] = true;
