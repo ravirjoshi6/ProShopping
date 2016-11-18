@@ -6,6 +6,7 @@ class Product extends CI_Controller {
 		$this->load->model ( 'Product_model' );
 		$this->load->helper(array('form', 'url'));
 		$this->load->database ();
+		$this->load->library('ecom');
 		header ( 'Access-Control-Allow-Origin: *' );
 		header ( "Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept" );
 		header ( 'Access-Control-Allow-Methods: GET, POST, PUT' );
@@ -18,20 +19,18 @@ class Product extends CI_Controller {
 		$userData = $this->input->post ();
 		$error = array ();
 		$result = array ();
+		
 		$config['upload_path']          = './uploads/';
 		$config['allowed_types']        = 'gif|jpg|png';
-
-		$this->load->library('upload', $config);
-		$this->upload->initialize($config);
 		
-// 		echo "<pre>";print_r($_FILES);exit;
-		if($this->upload->do_upload("imageFile"))
-		{
-			$data = array('upload_data' => $this->upload->data());
-			$userData['productImage'] = $data['upload_data']['file_name'];
+		$upload = $this->upload_data("imageFile", $config);
+		
+		if($upload['status']){
+			$userData['productImage'] = $upload['productImage'];
 		}else{
-			$error[] = $this->upload->display_errors();
-		}
+			$error[] = $upload['error'];
+		}		
+		
 		if (! isset ( $userData ['product_name'] )) {
 			$error [] = 'product';
 		}
@@ -44,6 +43,7 @@ class Product extends CI_Controller {
 		if (! isset ( $userData ['is_active'] )) {
 			$error [] = 'Status ';
 		}
+		
 		if (empty ( $error )) {
 			$result = $this->Product_model->createProduct ( $userData );
 		} else {
@@ -95,32 +95,20 @@ class Product extends CI_Controller {
 		}
 		echo json_encode ( $result );
 	}
-	public function uploadImage() {
-		$firstName = $_POST ["firstName"];
-		$lastName = $_POST ["lastName"];
-		$userId = $_POST ["userId"];
-		
-		$target_dir = "wp-content/uploads/2015/02"; // Here write our own target directory where we are keeping images of users
-		
-		if (! file_exists ( $target_dir )) {
-			mkdir ( $target_dir, 0777, true );
+	public function upload_data($fieldName, $config)
+	{
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		$return = array();
+		if($this->upload->do_upload($fieldName))
+		{
+			$data = array('upload_data' => $this->upload->data());
+			$return['productImage'] = $data['upload_data']['file_name'];
+			$return['status'] = TRUE;
+		}else{
+			$return['status']= FALSE;
+			$return['error'] = $this->upload->display_errors();
 		}
-		
-		$target_dir = $target_dir . "/" . basename ( $_FILES ["file"] ["name"] );
-		
-		if (move_uploaded_file ( $_FILES ["file"] ["tmp_name"], $target_dir )) {
-			echo json_encode ( [ 
-					"Message" => "The file " . basename ( $_FILES ["file"] ["name"] ) . " has been uploaded.",
-					"Status" => "OK",
-					"userId" => $_REQUEST ["userId"] 
-			] );
-		} else {
-			
-			echo json_encode ( [ 
-					"Message" => "Sorry, there was an error uploading your file.",
-					"Status" => "Error",
-					"userId" => $_REQUEST ["userId"] 
-			] );
-		}
+		return $return;
 	}
 }
