@@ -33,7 +33,7 @@ class User extends CI_Controller {
 		}
 		if (empty ( $error )) {
 			if (! $this->User_model->getUserById ( $userData ['email'] )->status) {
-				$result = $this->User_model->saveUser ( $userData );
+				$result['id'] = $this->User_model->saveUser ( $userData );
 				$this->load->library('email');
 				$this->email->set_header('Content-type', 'text/html; charset=UTF-8');
 				$this->email->set_header('MIME-VErsion', '1.0');
@@ -45,6 +45,7 @@ class User extends CI_Controller {
 				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.urlencode(base64_encode($userData['email'])).'  </body></htmml>';
 				$this->email->message($msg);
 				$this->email->send();
+				$result['status'] = TRUE;
 			} else {
 				$result ['msg'] = 'User Already Exists';
 				$result ['status'] = false;
@@ -239,6 +240,10 @@ class User extends CI_Controller {
 		}else{
 			echo 'User not found. Please contact to support';
 		}
+		
+	}
+	
+	public function contactus(){
 		
 	}
 }

@@ -111,4 +111,5 @@ class Product extends CI_Controller {
 		}
 		return $return;
 	}
+	
 }
