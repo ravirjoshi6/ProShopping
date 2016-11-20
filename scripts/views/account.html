@@ -66,24 +66,12 @@
                         </div>
                         <div>
                             <label>
-                                <input placeholder="email address:" type="email" tabindex="3" required>
+                                <input placeholder="email address:" type="email" ng-model="user.email" tabindex="3" required>
                             </label>
-                        </div>
+                        </div> 
                         <div>
                             <label>
-                                <input placeholder="Mobile:" type="tel" tabindex="3" required>
-                            </label>
-                        </div>
-                        <div class="sky_form1">
-                            <ul>
-                                <li><label class="radio left"><input type="radio" name="radio" checked=""><i></i>Male</label></li>
-                                <li><label class="radio"><input type="radio" name="radio"><i></i>Female</label></li>
-                                <div class="clearfix"></div>
-                            </ul>
-                        </div>
-                        <div>
-                            <label>
-                                <input placeholder="password" type="password" tabindex="4" required>
+                                <input placeholder="password" type="password" tabindex="4" ng-model="user.pwd" required>
                             </label>
                         </div>
                         <div>
@@ -91,12 +79,12 @@
                                 <input placeholder="retype password" type="password" tabindex="4" required>
                             </label>
                         </div>
+                        <div class="sky-form">
+                            <label class="checkbox"><input id="terms" type="checkbox" name="checkbox"><i></i>i agree to mobilya.com &nbsp;<a class="terms" href="#"> terms of service</a> </label>
+                        </div>
                         <div>
                             <input type="submit" value="create an account" id="register-submit">
-                        </div>
-                        <div class="sky-form">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>i agree to mobilya.com &nbsp;<a class="terms" href="#"> terms of service</a> </label>
-                        </div>
+                        </div>                        
                     </form>
                     <!-- /Form -->
                 </div>
@@ -105,15 +93,16 @@
                 <h2>existing user</h2>
                 <div class="registration_form">
                     <!-- Form -->
-                    <form id="registration_form" action="contact.php" method="post">
+                    <form id="registration_login_form" ng-submit="login(userlogin)" >
+                        <div class="loginerror"><span></span></div>
                         <div>
                             <label>
-                                <input placeholder="email:" type="email" tabindex="3" required>
+                                <input placeholder="email:" type="email" ng-model="userlogin.email" tabindex="3" required>
                             </label>
                         </div>
                         <div>
                             <label>
-                                <input placeholder="password" type="password" tabindex="4" required>
+                                <input placeholder="password" type="password" ng-model="userlogin.pwd" tabindex="4" required>
                             </label>
                         </div>
                         <div>

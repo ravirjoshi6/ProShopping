@@ -8,13 +8,14 @@
         <div class="col-md-6 log">
             <!--<p>Welcome, please enter the folling to continue.</p>
              <p>If you have previously Login with us, <span>click here</span></p>-->
-            <form>
-                <h5>Username:</h5>
-                <input type="text" value="">
+            <div class="loginerror"><span></span></div>
+            <form ng-submit="login(userlogin)">
+                <h5>Email:</h5>
+                <input type="text" required ng-model="userlogin.email" value="">
                 <h5>Password:</h5>
-                <input type="password" value="">
+                <input type="password" required ng-model="userlogin.pwd" value="">
                 <input type="submit" value="Login">
-                <a class="acount-btn" href="account.html">Create an Account</a>
+                <a class="acount-btn" href="/account">Create an Account</a>
             </form>
             <a href="#">Forgot Password ?</a>
 
