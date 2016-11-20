@@ -21,24 +21,23 @@ class Product_model extends CI_Model {
 		}
 		return $result;
 	}
-	function createProduct($user, $isAdmin = FALSE) {
+	function createProduct($product) {
 		date_default_timezone_set("America/New_York");
 		$result = array();
-		if(!$this->get_product_by_name($user['product_name'])->status){
+		if(!$this->get_product_by_name($product['product_name'])->status){
 			$data = array (
-					'product_name' => $user['product_name'],
-					'price' => $user ['product_price'],
-					'description' => $user ['product_desc'],
+					'product_name' => $product['product_name'],
+					'price' => $product['product_price'],
+					'description' => $product['product_desc'],
 					'lastModifiedDate' =>date("Y-m-d h:i:sa"),
-					'productImage' => '',
+					'productImage' => $product['productImage'],
 			);
 			
-			if($user['is_active']== 'true'){
-				$data['isActive'] = TRUE;
+			if($product['is_active']== 'true' || $product['is_active']){
+				$data['isActive'] = 1;
 			}else{
-				$data['isActive'] = FALSE;
+				$data['isActive'] = 0;
 			}
-			
 			$this->db->insert ( 'product', $data );
 			$result['product_id'] = $this->db->insert_id ();
 			$result['status'] = true;

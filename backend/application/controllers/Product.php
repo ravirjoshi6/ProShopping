@@ -4,18 +4,33 @@ class Product extends CI_Controller {
 	function __construct() {
 		parent::__construct ();
 		$this->load->model ( 'Product_model' );
+		$this->load->helper(array('form', 'url'));
 		$this->load->database ();
-		header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		header('Access-Control-Allow-Methods: GET, POST, PUT');
+		$this->load->library('ecom');
+		header ( 'Access-Control-Allow-Origin: *' );
+		header ( "Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept" );
+		header ( 'Access-Control-Allow-Methods: GET, POST, PUT' );
 	}
 	public function index() {
-		$this->load->view ( 'welcome_message' );
+		
+		$this->load->view ( 'welcome_message', array('error' => ' ' ) );
 	}
 	public function create() {
 		$userData = $this->input->post ();
 		$error = array ();
 		$result = array ();
+		
+		$config['upload_path']          = './uploads/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		
+		$upload = $this->upload_data("imageFile", $config);
+		
+		if($upload['status']){
+			$userData['productImage'] = $upload['productImage'];
+		}else{
+			$error[] = $upload['error'];
+		}		
+		
 		if (! isset ( $userData ['product_name'] )) {
 			$error [] = 'product';
 		}
@@ -28,25 +43,26 @@ class Product extends CI_Controller {
 		if (! isset ( $userData ['is_active'] )) {
 			$error [] = 'Status ';
 		}
+		
 		if (empty ( $error )) {
-			$result= $this->Product_model->createProduct($userData);				
+			$result = $this->Product_model->createProduct ( $userData );
 		} else {
-			$result['status'] = FALSE;
+			$result ['status'] = FALSE;
 			$result ['error'] = $error;
 		}
 		echo json_encode ( $result );
 		exit ();
 	}
-	public function update(){
+	public function update() {
 		$userData = $this->input->post ();
 		$error = array ();
 		$result = array ();
-		$data = array();
+		$data = array ();
 		if (! isset ( $userData ['product_name'] )) {
 			$error [] = 'product_name';
 		}
-		if ( isset ( $userData ['product_name'] )) {
-			$data['product_name'] = $userData ['product_name'];
+		if (isset ( $userData ['product_name'] )) {
+			$data ['product_name'] = $userData ['product_name'];
 		}
 		if (isset ( $userData ['product_price'] )) {
 			$data ['price'] = $userData ['product_price'];
@@ -54,86 +70,46 @@ class Product extends CI_Controller {
 		if (isset ( $userData ['product_desc'] )) {
 			$data ['description'] = $userData ['product_desc'];
 		}
-		if (isset ( $userData ['is_active'] ) && $userData['is_active'] == "true") {
+		if (isset ( $userData ['is_active'] ) && $userData ['is_active'] == "true") {
 			$data ['isActive'] = TRUE;
-		}else{
+		} else {
 			$data ['isActive'] = FALSE;
 		}
 		
-		if(empty($error)){
-			$result = $this->Product_model->update_product($userData['product_name'], $data);
-		}else{
-			$result['status'] = false;
-			$result['msg'] = 'User not found.';
-		}
-		echo json_encode($result);
-		exit;
-	}
-
-	public function delete(){
-		$userData = $this->input->post ();
-		if(!empty($userData) && !empty($userData['product_name'])){
-			$result = $this->Product_model->delete_product($userData['product_name']);
-		}else{
-			$result['status'] = FALSE;
-			$result['msg'] = 'Product not found';
-		}
-		echo json_encode($result);
-	}
-	
-	
-	
-	// user create functions
-	public function login() {
-		$userData = $this->input->post ();
-		$error = array ();
-		$result = array ();
-		if (! isset ( $userData ['email'] )) {
-			$error [] = 'email';
-		}
-		if (! isset ( $userData ['password'] )) {
-			$error [] = 'password';
-		}
 		if (empty ( $error )) {
-			$result ['id'] = $this->Api_model->checkLogin ( $userData ['email'], $userData ['password'] );
+			$result = $this->Product_model->update_product ( $userData ['product_name'], $data );
 		} else {
-			$result ['error'] = $error;
+			$result ['status'] = false;
+			$result ['msg'] = 'User not found.';
 		}
 		echo json_encode ( $result );
 		exit ();
 	}
-	
-	
-	public function createAdmin(){
+	public function delete() {
 		$userData = $this->input->post ();
-		$error = array ();
-		$result = array ();
-		if (! isset ( $userData ['firstName'] )) {
-			$error [] = 'firstname';
-		}
-		if (! isset ( $userData ['lastName'] )) {
-			$error [] = 'lastName';
-		}
-		if (! isset ( $userData ['email'] )) {
-			$error [] = 'email';
-		}
-		if (! isset ( $userData ['password'] )) {
-			$error [] = 'password';
-		}
-		if (empty ( $error )) {
-			if (! $this->Api_model->getUserById ( $userData ['email'] )->status) {
-				$result = $this->Api_model->saveUser ( $userData, TRUE );
-			} else {
-				$result ['msg'] = 'User Already Exists';
-				$result ['status'] = false;
-			}
+		if (! empty ( $userData ) && ! empty ( $userData ['product_name'] )) {
+			$result = $this->Product_model->delete_product ( $userData ['product_name'] );
 		} else {
-			$result ['error'] = $error;
+			$result ['status'] = FALSE;
+			$result ['msg'] = 'Product not found';
 		}
 		echo json_encode ( $result );
-		exit ();
 	}
-	
-	
+	public function upload_data($fieldName, $config)
+	{
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		$return = array();
+		if($this->upload->do_upload($fieldName))
+		{
+			$data = array('upload_data' => $this->upload->data());
+			$return['productImage'] = $data['upload_data']['file_name'];
+			$return['status'] = TRUE;
+		}else{
+			$return['status']= FALSE;
+			$return['error'] = $this->upload->display_errors();
+		}
+		return $return;
+	}
 	
 }
