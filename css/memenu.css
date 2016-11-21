@@ -1,8 +1,8 @@
 .memenu
 {margin:0;padding:0;width:100%;list-style:none;display:inline-block;position:relative;font-family:Calibri,Arial;font-size:15px}
 .memenu li{display:inline-block;text-align:left;}
-ul.memenu.skyblue {text-align: center;}
-.memenu>li>a{  font-family: 'JosefinSans-Regular';float:left;padding: 5px 25px 5px 25px;color:#caccce;font-weight:600;text-decoration:none;text-transform:uppercase;transition:color .4s ease-in-out;-moz-transition:color .4s ease-in-out;-webkit-transition:color .4s ease-in-out;-o-transition:color .4s ease-in-out}
+/*ul.memenu.skyblue {text-align: center;}*/
+.memenu>li>a{  font-family: 'JosefinSans-Regular';float:left;padding: 5px 18px 5px 0px;color:#caccce;font-weight:600;text-decoration:none;text-transform:uppercase;transition:color .4s ease-in-out;-moz-transition:color .4s ease-in-out;-webkit-transition:color .4s ease-in-out;-o-transition:color .4s ease-in-out}
 .memenu>li>.mepanel {
 	position: absolute;
 	display: none;
@@ -61,8 +61,8 @@ ul.memenu.skyblue {text-align: center;}
 .memenu>li.showhide span.title{margin:15px 0 0 25px;float:left}.memenu>li.showhide span.icon1:after{position:absolute;content:"";right:25px;top:15px;height:3px;width:25px;font-size:50px;border-top:3px solid #fff;border-bottom:3px solid #fff;z-index:1}
 .memenu>li.showhide span.icon2:after{position:absolute;content:"";right:25px;top:27px;height:3px;width:25px;font-size:50px;border-top:3px solid #fff;border-bottom:3px solid #fff;z-index:1}	
 .skyblue li>a,.skyblue>li.showhide span{color:#caccce}
-.skyblue>li:hover>a,.skyblue>li.active>a,.skyblue .dropdown li:hover>a{color:#00a0dc}.
-skyblue .mepanel img:hover,.skyblue form.contact input[type="text"]:focus,.skyblue form.contact textarea:focus{border:solid 1px #0194be}
+.skyblue>li:hover>a,.skyblue>li.active>a,.skyblue .dropdown li:hover>a{color:#00a0dc}
+.skyblue .mepanel img:hover,.skyblue form.contact input[type="text"]:focus,.skyblue form.contact textarea:focus{border:solid 1px #0194be}
 .skyblue form.contact input[type="submit"]{background:#0194be}
 @media (max-width: 1280px){
 .memenu>li>a {

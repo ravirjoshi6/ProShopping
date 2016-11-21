@@ -9,7 +9,11 @@
                     templateUrl: "/scripts/views/index.html",
                     controller: "HomeController"
                 })
-                .when("/home", {
+             .when("/index.html", {
+                 templateUrl: "/scripts/views/index.html",
+                 controller: "HomeController"
+             })
+              .when("/home", {
                     templateUrl: "/scripts/views/account.html",
                     controller: "AccountController"
                 })

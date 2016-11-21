@@ -179,17 +179,19 @@ h1.b1,h2.b2,h3.b3 {
   min-height: 89px;
 }
 .header-bottom {
-  padding: 2.3em 0;
+  padding: 0.3em 0;
 }
-.logo  a h1{
-	color:#333;
+.logo  a {
+	color:white;
 	font-family: 'JosefinSans-Bold';	
-	 font-size: 2.55em;
-  font-weight: 100;
+	font-size: 2.55em;
+    font-weight: 100;
+    text-decoration:none;
 }
-.logo  a h1:hover{
+.logo  a:hover, .logo  a:focus {
 	text-decoration:none;
-	display:inline-block;	
+	display:inline-block;
+    color:white;	
 }
 .logo{
 	float:left;
@@ -519,9 +521,9 @@ li.nbs-flexisel-item a:hover{
 .feature-grid a{
 	text-decoration:none;
 }
-.featured {
+/*.featured {
   margin-top: 3em;
-}
+}*/
 .feature-grids{
 	margin-top:3em;
 }
