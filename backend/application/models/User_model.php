@@ -154,7 +154,9 @@ class User_model extends CI_Model {
 		}else{
 			return array('status' => FALSE, 'msg' => 'User not found.');
 		}
-		
-		
+	}
+	public function add_address($post){
+		$this->db->insert('user_address', $post);
+		return $this->db->insert_id ();
 	}
 }
