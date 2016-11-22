@@ -5,6 +5,7 @@
         function AccountController($scope) {
             var newuser = new User();
             $scope.register = function (user) {
+               var product = new Product();
                 if ($("#terms").is(':checked')) {
                     newuser.firstname = user.firstname;
                     newuser.lastname = user.lastname;
