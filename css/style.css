@@ -15,6 +15,10 @@ body a{
 	-moz-transition: 0.5s all;
 	-ms-transition: 0.5s all;
 }
+
+.p-container {
+padding-bottom:30px;
+}
 @font-face {
    font-family: 'JosefinSans-Regular';
    src: url(../fonts/JosefinSans-Regular.ttf) format('truetype');
