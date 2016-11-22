@@ -246,4 +246,27 @@ class User extends CI_Controller {
 	public function contactus(){
 		
 	}
+	
+	public function create_address(){
+		$post = $this->input->post();
+		$required_fields = array('user_id', 'address_1', 'address_2', 'city', 'state', 'zipcode', 'is_default');
+		$error = array();
+		$result = array();
+		foreach ($required_fields as $field){
+			if(!array_key_exists($field, $post)){
+				$error['missing_field'][] = $field;
+			}
+		}
+		if(empty($error)){
+			$post['is_default'] = 1;
+			$post['last_modified_date'] = date ( "Y-m-d h:i:sa" );
+			$address_id = $this->User_model->add_address($post);
+			$result['status'] = true;
+			$result['id'] = $address_id;
+		}else{
+			$error['status'] = false;
+			$result = $error;
+		}
+		echo json_encode($result);exit;
+	}
 }

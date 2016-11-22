@@ -4,23 +4,6 @@ if (! defined ( 'BASEPATH' ))
 	exit ( 'No direct script access allowed' );
 class Product_model extends CI_Model {
 	
-	function checkLogin($email, $password, $role= 'normal') {
-		$result = array();
-		$roleId= $this->getUserRoleId($role);
-		$this->db->where ( 'email', $email );
-		$this->db->where ( 'password', md5 ( $password ) );
-		$this->db->where ( 'userRole', $roleId);
-		$query = $this->db->get ( 'user' );
-		$rowcount = $query->num_rows ();
-		if ($rowcount == 1) {
-			$ret = $query->row ();
-			$result['status'] = true;
-			$result['id'] = $ret->user_id;
-		} else {
-			$result['status'] = FALSE;
-		}
-		return $result;
-	}
 	function createProduct($product) {
 		date_default_timezone_set("America/New_York");
 		$result = array();
@@ -92,6 +75,23 @@ class Product_model extends CI_Model {
 			$query = $this->db->get ( 'user_roles' );
 			return $query->row()->role_id;
 		}
+	}
+	
+	public function add_payment($data){
+		$this->db->insert('payment', $data);
+		return $this->db->insert_id ();
+	}
+	
+	public function get_products(){
+		//$data = $this->db->get('products');
+		$product = array ();
+		
+		foreach ( $this->db->get('product')->result () as $row ) {
+			$product [] = $row;
+		}
+		
+		return $product;
+		
 	}
 	
 }
