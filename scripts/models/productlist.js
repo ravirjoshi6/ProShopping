@@ -48,7 +48,7 @@
         productid: "6",
         name: "Nike Black tee shirt",
         desc: "des 2",
-        price: "345",
+        price: "456456",
         img: "images/nike-black.jpg",
         isactive: "Y",
         size: "S"
@@ -57,7 +57,7 @@
         productid: "7",
         name: "Nike-Gray tee shirt",
         desc: "des 3",
-        price: "456",
+        price: "45456456",
         img: "images/nike-gray.jpg",
         isactive: "Y",
         size: "L"
@@ -66,7 +66,7 @@
         productid: "8",
         name: "Nike Blue tee shirt",
         desc: "des 4",
-        price: "789",
+        price: "454546",
         img: "images/nike-blue.jpg",
         isactive: "Y",
         size: "M"

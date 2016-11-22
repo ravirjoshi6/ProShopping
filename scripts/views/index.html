@@ -3,7 +3,7 @@
     <div class="container">
         <h3>Featured Products</h3>
         <div class="feature-grids">
-            <div class="col-md-3 feature-grid jewel lazy" ng-repeat="product in productlist">
+            <div class="col-md-3 feature-grid jewel lazy" ng-repeat="product in productlist.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                 <a href="product.html">
                     <img src="{{product.img}}" alt="">
                     <div class="arrival-info">
@@ -13,7 +13,7 @@
                         <span class="disc">[12% Off]</span>
                     </div>
                 </a><div class="viw">
-                    <a href="product.html">
+                    <a href="/product-details">
                     </a><a href="product.html"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
                 </div>
                 <div class="shrt">
@@ -21,6 +21,9 @@
                 </div>
             </div>
             <div class="clearfix"></div>
+        </div>
+        <div>
+            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
         </div>
     </div>
 </div>
