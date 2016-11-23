@@ -5,7 +5,7 @@
         function HomeController($scope) {
             var productlist = new ProductList();
             $scope.productlist = productlist;
-            $scope.viewby = 4;
+            $scope.viewby = 8;
             $scope.totalItems = $scope.productlist.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
