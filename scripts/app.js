@@ -28,9 +28,13 @@
             .when("/account", {
                 templateUrl: "/scripts/views/account.html",
                 controller: "AccountController"
-            }).when("/product-details", {
+            })
+            .when("/product-details", {
                 templateUrl: "/scripts/views/product-details.html",
                 controller: "ProductDetails"
+            })
+            .when("/faq", {
+                templateUrl: "/scripts/views/faq.html"               
             })
         .otherwise({
             redirectTo: "/error.html"
