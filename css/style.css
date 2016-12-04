@@ -180,7 +180,6 @@ h1, h2, h3, h4, h5, h6, label, p {
 .box_1 {
     float: right;
     width: 15%;
-    margin-top: 1em;
 }
 
     .box_1 div {
@@ -2177,24 +2176,24 @@ a.cpns {
     padding: 0 0 35px 0;
 }
 
-.faq-section .question{
-    color: #646464;
-    display: block;
-    border-bottom: 1px solid #E5E5E5;
-    padding-bottom: 5px;
-    font-size: 1.3em;
-}
+    .faq-section .question {
+        color: #646464;
+        display: block;
+        border-bottom: 1px solid #E5E5E5;
+        padding-bottom: 5px;
+        font-size: 1.3em;
+    }
 
-.faq-section .answer{
-    color: #646464;
-    display: block;   
-    padding-top: 15px;
-    font-size: 1.0em;
-}
+    .faq-section .answer {
+        color: #646464;
+        display: block;
+        padding-top: 15px;
+        font-size: 1.0em;
+    }
 
-.faq-section section {
-padding: 15px 0 15px 0;     
-}
+    .faq-section section {
+        padding: 15px 0 15px 0;
+    }
 
 /*--responsive--*/
 @media (max-width: 1440px) {
@@ -2306,6 +2305,7 @@ padding: 15px 0 15px 0;
         width: 50%;
         float: left;
         margin-bottom: 2em;
+        text-align: center;
     }
 
     .rsidebar {
@@ -2540,7 +2540,7 @@ padding: 15px 0 15px 0;
     }
 
     .jewel {
-        margin-right: 10%;
+        margin-right: 5%;
     }
 
     .feature-grid {
@@ -2979,4 +2979,10 @@ padding: 15px 0 15px 0;
         width: 33%;
         margin-top: 0;
     }
+}
+
+.center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }

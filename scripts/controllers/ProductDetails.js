@@ -3,8 +3,7 @@
     var app = angular.module("proshop");
     app.controller('ProductDetails', function ($scope, cart) {
         var product = new Product();
-        var quantity = "3";
-        console.log(product.name);
+        var quantity = "1";
         $scope.product = product;
         $scope.quantity = quantity;
 
