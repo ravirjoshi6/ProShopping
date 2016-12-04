@@ -2178,23 +2178,23 @@ a.cpns {
 }
 
     .faq-section .question {
-        color: #646464;
-        display: block;
-        border-bottom: 1px solid #E5E5E5;
-        padding-bottom: 5px;
-        font-size: 1.3em;
-    }
+    color: #646464;
+    display: block;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 5px;
+    font-size: 1.3em;
+}
 
     .faq-section .answer {
-        color: #646464;
-        display: block;
-        padding-top: 15px;
-        font-size: 1.0em;
-    }
+    color: #646464;
+    display: block;   
+    padding-top: 15px;
+    font-size: 1.0em;
+}
 
-    .faq-section section {
-        padding: 15px 0 15px 0;
-    }
+.faq-section section {
+padding: 15px 0 15px 0;     
+}
 
 .product-details {
     height: 145px;
@@ -2246,7 +2246,7 @@ color:white;
 @media (max-width: 1366px) {
     .product-details {
         height: 145px;
-    }
+}
 
     .float {
     float:right;
@@ -2268,7 +2268,7 @@ color:white;
 
     .product-details {
         height: 145px;
-    }
+}
 
     .product-details {
         height: 145px;
@@ -2368,6 +2368,7 @@ color:white;
         width: 50%;
         float: left;
         margin-bottom: 2em;
+        text-align: center;
     }
 
     .rsidebar {
@@ -2610,7 +2611,7 @@ color:white;
     }
 
     .jewel {
-        margin-right: 10%;
+        margin-right: 5%;
     }
 
     .feature-grid {
@@ -3049,4 +3050,10 @@ color:white;
         width: 33%;
         margin-top: 0;
     }
+}
+
+.center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }

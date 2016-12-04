@@ -112,7 +112,9 @@ class Product extends CI_Controller {
 		return $return;
 	}
 	public function getProducts(){
-		
+		$product = $this->Product_model->get_products();
+		echo json_encode($product);
+		exit;
 	}
 	public function getProductDetails(){
 		echo json_encode($this->Product_model->get_products());
