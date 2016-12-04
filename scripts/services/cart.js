@@ -17,8 +17,9 @@ app.service('cart', function () {
             productid: product.productid,
             name: product.name,
             quantity: quantity,
+            img: product.img,
             price: product.price,
-            total: product.price * quantity
+            total: product.price * quantity,
         }
         newcart.products.push(product);
         $.each(newcart.products, function (i,item) {
@@ -26,9 +27,9 @@ app.service('cart', function () {
             newcart.cartquantity = newcart.cartquantity + item.quantity;
         })
         newcart.cartid = "1";       
-        newcart.userid = 27;       
+        newcart.userid = 27;
+        $('.carttotal').text("$ " + newcart.carttotal + ".00");
         sessionStorage.setItem('cart', JSON.stringify(newcart));
-        $('.carttotal').text("$ " + newcart.carttotal +".00");      
     }
     this.updatecart = function (product, quantity, cartobj) {
         cartobj.products.filter(function (e) {
@@ -41,9 +42,24 @@ app.service('cart', function () {
                 cartobj.carttotal = cartobj.carttotal + item.total;
                 cartobj.cartquantity = cartobj.cartquantity + item.quantity;
             })
-        })
-        $('.carttotal').text("$ " + cartobj.carttotal + ".00");
+        })      
         sessionStorage.setItem('cart', JSON.stringify(cartobj));
 
+    }
+
+    this.removefromcart = function (product) {
+        var cartobj = JSON.parse(sessionStorage.getItem('cart'));
+        $.each(cartobj.products, function (i, item) {
+            if (item.productid == product.productid) {               
+                cartobj.products.pop(i);
+                if (cartobj.products.length == 0) {
+                    sessionStorage.removeItem('cart');
+                    cartobj = null;
+                }else{
+                    sessionStorage.setItem('cart', JSON.stringify(cartobj));
+                }
+                return cartobj;
+            }
+        })
     }
 });

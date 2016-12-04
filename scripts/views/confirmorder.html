@@ -1,0 +1,29 @@
+﻿<div class="container">
+   <div class="row">
+        <table class="cart-table">
+            <tr>
+                <th>Product</th>
+                <th>image</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            <tr ng-repeat="product in cart.products">
+                <td><img class="product-details" src="{{product.img}}" alt=""></td>
+                <td>{{product.name}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.total}}</td>
+            </tr>
+            <tr><td colspan="4"><b>Sub-Total</b></td><td>{{cart.carttotal}}</td></tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="inline-block"><a class="link-button button" href="/#">Countinue shopping</a></div>
+        </div>
+        <div class="col-md-6">
+            <div class="inline-block float"><a class="link-button button" href="/#checkout">Proceed to checkout</a></div>
+        </div>
+    </div>  
+</div>

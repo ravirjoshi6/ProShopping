@@ -2177,30 +2177,80 @@ a.cpns {
     padding: 0 0 35px 0;
 }
 
-.faq-section .question{
-    color: #646464;
-    display: block;
-    border-bottom: 1px solid #E5E5E5;
-    padding-bottom: 5px;
-    font-size: 1.3em;
+    .faq-section .question {
+        color: #646464;
+        display: block;
+        border-bottom: 1px solid #E5E5E5;
+        padding-bottom: 5px;
+        font-size: 1.3em;
+    }
+
+    .faq-section .answer {
+        color: #646464;
+        display: block;
+        padding-top: 15px;
+        font-size: 1.0em;
+    }
+
+    .faq-section section {
+        padding: 15px 0 15px 0;
+    }
+
+.product-details {
+    height: 145px;
 }
 
-.faq-section .answer{
-    color: #646464;
-    display: block;   
-    padding-top: 15px;
-    font-size: 1.0em;
+.cart-table {
+    width: 100%;
 }
 
-.faq-section section {
-padding: 15px 0 15px 0;     
+.cart-table td, .cart-table th {
+    text-align:center;
 }
+
+.inline-block {
+    display:inline-block;
+}
+
+
+.float-left {
+    float:left
+}
+
+.clear {
+    clear:both;
+}
+.float {
+    float:right;
+}
+.link-button {
+color:white;
+}
+
+.form-field-margin {
+    margin: 15px 0 15px 0;
+}
+
 
 /*--responsive--*/
 @media (max-width: 1440px) {
+    .product-details {
+        height: 145px;
+    }
+
+    .float {
+    float:right;
+}
 }
 
 @media (max-width: 1366px) {
+    .product-details {
+        height: 145px;
+    }
+
+    .float {
+    float:right;
+}
 }
 
 @media (max-width: 1280px) {
@@ -2214,6 +2264,14 @@ padding: 15px 0 15px 0;
 
     .box_1 {
         margin-top: 5px;
+    }
+
+    .product-details {
+        height: 145px;
+    }
+
+    .product-details {
+        height: 145px;
     }
 }
 
@@ -2241,6 +2299,10 @@ padding: 15px 0 15px 0;
         padding-top: 5em;
         width: 30%;
         float: right;
+    }
+
+    .product-details {
+        height: 145px;
     }
 }
 
@@ -2343,6 +2405,10 @@ padding: 15px 0 15px 0;
         width: 48%;
         padding: 3em 0 0 0;
     }
+
+    .product-details {
+        height: 145px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -2368,6 +2434,10 @@ padding: 15px 0 15px 0;
 
     .logo a h1 {
         font-size: 2.2em;
+    }
+
+    .product-details {
+        height: 145px;
     }
 }
 

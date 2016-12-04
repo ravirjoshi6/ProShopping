@@ -8,12 +8,12 @@
             color: "red",
             type: "FULL SLEEV",
             brand: "GAP",
-            gender:"male"
+            gender: "male",
+            size: "xl"
         },
         price: "12",
         img: "/images/a1.jpg",
-        isactive: "y",
-        size:"xl"
+        isactive: "y"       
     }
     return product;
 }

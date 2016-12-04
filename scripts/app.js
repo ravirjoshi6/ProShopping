@@ -31,7 +31,15 @@
             })
             .when("/product-details", {
                 templateUrl: "/scripts/views/product-details.html",
-                controller: "ProductDetails"
+                controller: "ProductDetailsController"
+            })
+            .when("/confirmorder", {
+                templateUrl: "/scripts/views/confirmorder.html",
+                controller: "ConfirmOrderController"
+            })
+            .when("/checkout", {
+                templateUrl: "/scripts/views/checkout.html",
+                controller: "CheckoutController"
             })
             .when("/faq", {
                 templateUrl: "/scripts/views/faq.html"               
