@@ -89,9 +89,17 @@ class Product_model extends CI_Model {
 		foreach ( $this->db->get('product')->result () as $row ) {
 			$product [] = $row;
 		}
-		
 		return $product;
-		
 	}
-	
+	public function rateProduct($product_id, $rating){
+		$this->db->select ( 'product.rating, product.rating_count' );
+		$this->db->where ( 'product_id', $product_id );
+		$query = $this->db->get ( 'product' );
+		$return = $query->row ();
+		$old_rating = $return->rating;
+		$old_rating_count = $return->rating_count;
+		$new_rating = ($old_rating+$rating)/($old_rating_count+1);
+		$this->db->where ( 'product_id', $product_id);
+		return $this->db->update('product', array('rating' => $new_rating));
+	}
 }
