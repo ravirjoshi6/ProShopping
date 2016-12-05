@@ -6,7 +6,8 @@
         price: "123",
         img: "images/nike-red.jpg",
         isactive: "Y",
-        size: "XL"
+        size: "XL",
+        rating: 3
     },
     {
         productid: "2",
@@ -15,7 +16,8 @@
         price: "345",
         img: "images/nike-black.jpg",
         isactive: "Y",
-        size: "S"
+        size: "S",
+        rating: 3.5
     },
     {
         productid: "3",
@@ -24,7 +26,8 @@
         price: "456",
         img: "images/nike-gray.jpg",
         isactive: "Y",
-        size: "L"
+        size: "L",
+        rating: 2
     },
     {
         productid: "4",
@@ -33,7 +36,8 @@
         price: "789",
         img: "images/nike-blue.jpg",
         isactive: "Y",
-        size: "M"
+        size: "M",
+        rating: 4
     },
     {
         productid: "5",
@@ -42,7 +46,8 @@
         price: "123",
         img: "images/nike-red.jpg",
         isactive: "Y",
-        size: "XL"
+        size: "XL",
+        rating: 4.2
     },
     {
         productid: "6",
@@ -51,7 +56,8 @@
         price: "456456",
         img: "images/nike-black.jpg",
         isactive: "Y",
-        size: "S"
+        size: "S",
+        rating: 2.8
     },
     {
         productid: "7",
@@ -60,7 +66,8 @@
         price: "45456456",
         img: "images/nike-gray.jpg",
         isactive: "Y",
-        size: "L"
+        size: "L",
+        rating: 3
     },
     {
         productid: "8",
@@ -69,7 +76,8 @@
         price: "454546",
         img: "images/nike-blue.jpg",
         isactive: "Y",
-        size: "M"
+        size: "M",
+        rating: 3
     }
     ]
     return productlist;

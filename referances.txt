@@ -1,0 +1,5 @@
+﻿Rating module:
+https://github.com/wbotelhos/raty
+
+Bootstrap inputs:
+https://v4-alpha.getbootstrap.com/components/input-group/

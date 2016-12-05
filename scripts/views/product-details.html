@@ -1,23 +1,17 @@
 ﻿
-<div class="container p-container">
+<div class="container p-container">   
     <!-- start content -->
     <div class="col-md-12 det">
         <div class="col-md-3 single_left">
             <div class="flexslider">
                 <div class="flex-viewport" style="overflow: hidden; position: relative;">
                     <ul class="slides" style="width: 1200%; transition-duration: 0.6s;">
-                        <li data-thumb="images/a1.jpeg" class="clone" aria-hidden="true" style="float: left; display: block;">
-                            <img ng-src="{{  product.img }}" draggable="false" style="width:300px; height:300px">
-                        </li>
+                        <li data-thumb="{{  product.img }}" class="clone" aria-hidden="true" style="float: left; display: block;">
+                            <img ng-src="{{  product.img }}" draggable="false">
+                        </li>          
                     </ul>
                 </div>
-
-
             </div>
-            <!-- FlexSlider -->
-            <script defer="" src="js/jquery.flexslider.js"></script>
-            <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen">
-
             <script>
                 // Can also be used with $(document).ready()
                 $(window).load(function () {
@@ -47,6 +41,8 @@
                             </select>
                         </li>
                         <li> <button href="#" ng-click="addtocart(product,quantity)">BUY NOW</button></li>
+
+                        <li><span>Rating:</span><div class="rating"></div></li>
                     </ul>
                 </div>
                 <div ng-show="cartobj.products">
@@ -62,7 +58,7 @@
                             <td>{{product.name}}</td>
                             <td>{{product.quantity}}</td>
                             <td>{{product.total}}</td>
-                            <td><a ng-click="removefromcart(product)">remove</a></a></td>
+                            <td><a ng-click="removefromcart(product)">remove</a></td>
                         </tr>                     
                     </table>
                 </div>
@@ -97,8 +93,7 @@
                 <li>Contents: 4 Pc</li>
                 <li>Delivery Time: 7 to 10 days from the Day of Dispatch</li>
             </ul>
-        </div>
-        <!---->
+        </div>       
         <div class="product-table">
             <h3>Specifications:</h3>
             <div class="item-sec">

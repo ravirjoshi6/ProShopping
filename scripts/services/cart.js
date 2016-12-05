@@ -7,7 +7,7 @@ app.service('cart', function () {
             products: [],
             carttotal: 0,
             cartquantity: 0,
-            userid: "",
+            userid: ""
         }
         return cart;
     }
@@ -19,7 +19,7 @@ app.service('cart', function () {
             quantity: quantity,
             img: product.img,
             price: product.price,
-            total: product.price * quantity,
+            total: product.price * quantity
         }
         newcart.products.push(product);
         $.each(newcart.products, function (i,item) {
