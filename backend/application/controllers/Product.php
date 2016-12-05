@@ -120,5 +120,27 @@ class Product extends CI_Controller {
 		echo json_encode($this->Product_model->get_products());
 		exit;
 	}
-	
+	public function ratemyproduct(){
+		$userData = $this->input->post ();
+		$required_fields = array( 'product_id', 'rating');
+		$error = array();
+		$result = array();
+		foreach ($required_fields as $field){
+			if(!array_key_exists($field, $userData)){
+				$error['missing_field'][] = $field;
+			}
+		}
+		if(empty($error)){
+			if($this->Product_model->rateProduct($userData['product_id'], $userData['rating'])){
+				$result['status'] = true;
+			}else{
+				$result['status'] = false;
+			}
+			
+		}else{
+			$error['status'] = false;
+			$result = $error;
+		}
+		echo json_encode($result);exit;
+	}
 }
