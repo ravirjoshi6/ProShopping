@@ -5,10 +5,14 @@ class User extends CI_Controller {
 		parent::__construct ();
 		$this->load->model ( 'User_model' );
 		$this->load->database ();
+		$this->load->library("JWT");
 		header('Access-Control-Allow-Origin: *');
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		header('Access-Control-Allow-Methods: GET, POST, PUT');
 		define("ENCRYPTION_KEY", "itsSecret!");
+		define('CONSUMER_KEY', 'itsSecret@234!key');
+		define('CONSUMER_SECRET', 'thatsOnlysecret#$%');
+		define('CONSUMER_TTL' , 86400);
 		
 	}
 	public function index() {
@@ -42,9 +46,12 @@ class User extends CI_Controller {
 				$this->email->to($userData['email']);
 				$this->email->bcc('nrupen92@gmail.com');
 				$this->email->subject('Wel come to Proshop');
-				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.urlencode(base64_encode($userData['email'])).'  </body></htmml>';
+				$msg = '<html>Hi '.$userData['firstName']. '<br> Please use below link to verify your email : http://capstone.devview.info/user/verifyUser?email='.urlencode(base64_encode($userData['email'])).'  </body></html>';
 				$this->email->message($msg);
 				$this->email->send();
+				$user = $userData;
+				$user['id'] = $result['id'];
+				$result['auth_token'] = $this->generate_token($user);
 				$result['status'] = TRUE;
 			} else {
 				$result ['msg'] = 'User Already Exists';
@@ -68,6 +75,11 @@ class User extends CI_Controller {
 		}
 		if (empty ( $error )) {
 			$result = $this->User_model->checkLogin ( $userData ['email'], $userData ['password'] );
+			if($result['status']== TRUE){
+				$data = $result;
+				$data['email'] = $userData['email'];
+				$data['email'] = $userData['email'];
+			}
 		} else {
 			$result ['error'] = $error;
 		}
@@ -268,5 +280,25 @@ class User extends CI_Controller {
 			$result = $error;
 		}
 		echo json_encode($result);exit;
+	}
+	public function authenticateUser($auth_token){
+		try{
+			$user = $this->jwt->decode($auth_token,CONSUMER_SECRET);
+			$result['status'] = TRUE;
+			$result['user'] = $user;
+		}catch(Exception $e){
+			$result['status'] = FALSE;
+			$result['msg'] = 'Invalid Token';
+		}
+		return $user;
+	}
+	public function generate_token($data){
+		$auth_token =  $this->jwt->encode(array(
+				'consumerKey'=>CONSUMER_KEY,
+				'user'=>$data,
+				'issuedAt'=>date(DATE_ISO8601, strtotime("now")),
+				'ttl'=>CONSUMER_TTL
+		), CONSUMER_SECRET);
+		return $auth_token;
 	}
 }
