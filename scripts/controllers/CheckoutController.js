@@ -4,21 +4,20 @@
     app.controller('CheckoutController', function ($scope,$location,cart) {
         var isLoged = app.checklogin(window.location.pathname);
         if (isLoged) {
-            var cart = JSON.parse(localStorage.getItem('cart'));
-            $.each(cart.products, function (i, item) {
-                if (item.name == "custome") {
-                    $('#normal').hide();
-                    $('#custome').show();
-                } else {
-                    $('#normal').show();
-                    $('#custome').hide();
-                }
-            });
+            var cart = JSON.parse(localStorage.getItem('cart'));            
             $('[name="expdate"]').datepicker();
             $scope.cart = cart;
+            $.each(cart.products, function (i, item) {
+                if (item.name == "custome") {
+                    $scope.custome = true
+                } else {
+                    $scope.custome = false
+                }
+            });
             $scope.placeOrder = function () {
                 var isLoged = app.checklogin(window.location.pathname);
                 if (isLoged) {
+                   
                     var validate = new CheckoutValidtions();
                     $scope.errors1 = validate.validatePaymentDetails();
                     $scope.errors2 = validate.validateShippingAddress();
@@ -30,11 +29,11 @@
                     $location.path('/login');
                     //$scope.$apply();
                 }
-            }
+            }           
         } else {
             $location.path('/login');
            // $scope.$apply();
-        }
+        }    
        
     });
 }());
