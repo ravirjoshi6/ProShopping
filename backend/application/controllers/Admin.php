@@ -177,4 +177,9 @@ class Admin extends CI_Controller {
 			redirect('/admin/index');
 		}
 	}
+	
+	public function logout(){
+		unset($this->session->user);
+		redirect('/admin/index');
+	}
 }
