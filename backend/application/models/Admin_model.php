@@ -56,4 +56,29 @@ if (! defined ( 'BASEPATH' ))
 			$diff=date_diff($to,$from);
 			return $diff->format('%a days');
 		}
+		
+		public function getUserCount(){
+			$this->db->select('count(*) as total');
+			$this->db->where('user_roles.role_name', 'normal'); 
+			$this->db->join ( 'user_roles', 'user.userRole = user_roles.role_id' );
+			$query= $this->db->get('user');
+			return $query->result()[0];
+		}
+		public function getpendingordercount(){
+			$this->db->select('count(*) as total');
+			$this->db->where('order.orderStatus !=', 'finished');
+			$query= $this->db->get('order');
+			return $query->result()[0];
+		}
+		public function getRecentOrders(){
+			$result = array();
+			$this->db->select('order.order_id , product.product_name , order.orderStatus ');
+			$this->db->join ( 'product', 'product.product_id = order.product_id' );
+			$this->db->limit(7, 1);
+			$this->db->order_by('order.lastModifiedDate','DESC');
+			foreach ( $this->db->get('order')->result () as $row ) {
+				$result[]= array('order_id' => $row->order_id, 'product_name' =>$row->product_name, 'orderStatus'=> $row->orderStatus);
+			}
+			return $result;
+		}
 	}

@@ -41,6 +41,9 @@ class Admin extends CI_Controller {
 			$data= array();
 			$data['user'] = $this->Admin_model->get_users();
 			$data['products']=$this->Admin_model->get_products();
+			$data['members']= $this->Admin_model->getUserCount()->total;
+			$data['orders'] = $this->Admin_model->getpendingordercount()->total;
+			$data['recent_orders'] = $this->Admin_model->getRecentOrders();
 			$this->load->view('userhome',$data);
 		}else{
 			redirect('/admin/index');
@@ -49,7 +52,12 @@ class Admin extends CI_Controller {
 	}
 	
 	public function addproduct(){
-		echo 123;exit;
+		if(isset($this->session->user)){
+			$this->load->view('addProduct');
+			
+		}else{
+			redirect('/admin/index');
+		}
 	}
 	public function manageproduct(){
 		echo 123;exit;
