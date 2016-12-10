@@ -229,35 +229,34 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							<!-- text input -->
 							<div class="form-group">
 								<input type="text" class="form-control"
-									placeholder="Enter Product Name" name="product_name">
+									placeholder="Enter Product Name" name="product_name" required>
 							</div>
 							<div class="form-group has-success">
 								<input type="text" class="form-control"
-									placeholder="Enter Product Description" id="inputSuccess"
-									name="desc">
+									placeholder="Enter Product Description" id="inputSuccess" required	name="desc">
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control"
-									placeholder="Enter material name" name="material">
+									placeholder="Enter material name" name="material" required>
 							</div>
 							<div class="form-group">
 								<label>Color picker:</label> <input type="text"
-									class="form-control" name="color">
+									class="form-control" name="color" required>
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control"
-									placeholder="Enter Product Type" name="type">
+									placeholder="Enter Product Type" name="type" required>
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control"
-									placeholder="Enter Brand Name" name="brand">
+									placeholder="Enter Brand Name" name="brand" required>
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control"
-									placeholder="Enter price of product" name="price">
+									placeholder="Enter price of product" name="price" required>
 							</div>
 							<div class="form-group">
-								<select class="form-control select2"
+								<select required class="form-control select2"
 									data-placeholder="Select Gender" style="width: 100%;"
 									name="gender">
 									<option>-- Select Gender --</option>
@@ -266,7 +265,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 								</select>
 							</div>
 							<div class="form-group">
-								<select class="form-control select2"
+								<select required class="form-control select2"
 									data-placeholder="Select Size" style="width: 100%;" name="size">
 									<option>-- Select Size --</option>
 									<option>Small</option>
@@ -277,15 +276,15 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							</div>
 							<div class="form-group">
 								<label class="select_file">Select Image</label> <input
-									type="file" id="exampleInputFile" name="imageFile"
+									type="file" required id="exampleInputFile" name="imageFile"
 									id="imageFile">
 							</div>
 							<div class="checkbox">
-								<label> <input type="checkbox" name="isActive"> Is Active?
+								<label> <input type="checkbox" name="isActive" required>  Is Active?
 								</label>
 							</div>
 							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-primary" required>Submit</button>
 							</div>
 
 
