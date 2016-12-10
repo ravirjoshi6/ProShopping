@@ -1,7 +1,12 @@
 'use strict';
 (function () {    
     var app = angular.module("proshop", ["ngRoute", "ui.bootstrap"]);   
-    app.controller('errorController', function ($scope) {    
+    app.controller('errorController', function ($scope) {
+        if (app.token) {
+            $scope.logeddin = true;
+        } else {
+            $scope.logeddin = false;
+        }
     });
     app.config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);

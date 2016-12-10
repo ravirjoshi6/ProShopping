@@ -37,7 +37,7 @@ app.service('cart', function () {
         cartobj.products.filter(function (e) {
             if (e.productid == product.productid) {
                 e.quantity = e.quantity + quantity;
-                e.total = product.price * quantity;                
+                e.total = product.price * e.quantity;                
             }
             cartobj.carttotal = 0;
             $.each(cartobj.products, function (i, item) {

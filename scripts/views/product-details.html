@@ -22,10 +22,8 @@
                 });
             </script>
         </div>
-        <div class="col-md-6 single-right" style="float:left">
+        <div class="col-md-8 single-right" style="float:left">
             <h3>{{ product.name }}</h3>
-
-
             <div class="cost">
                 <div class="prdt-cost">
                     <ul>
@@ -40,15 +38,25 @@
                                 <option value=5>5</option>
                             </select>
                         </li>
+                        <li>
+                            Size:
+                            <select ng-model="size">
+                                <option selected value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
+                                <option value="XL">Extra Large</option>                              
+                            </select>
+                        </li>
                         <li> <button href="#" ng-click="addtocart(product,quantity)">BUY NOW</button></li>
 
                         <li><span>Rating:</span><div class="rating"></div></li>
                     </ul>
                 </div>
                 <div ng-show="cartobj.products">
-                    <span>Your Cart:</span>
+                  
                     <table>
-                        <tr>
+                        <tr><th colspan="4">Your Cart:</th></tr>
+                        <tr>                            
                             <th>Product</th>
                             <th>Quantity</th>
                             <th>Price</th>
@@ -57,7 +65,7 @@
                         <tr ng-repeat="product in cartobj.products">
                             <td>{{product.name}}</td>
                             <td>{{product.quantity}}</td>
-                            <td>{{product.total}}</td>
+                            <td>$ {{product.total}} .00</td>
                             <td><a ng-click="removefromcart(product)">remove</a></td>
                         </tr>                     
                     </table>
