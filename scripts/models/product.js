@@ -12,7 +12,7 @@
             size: "xl"
         },
         rating:1,
-        price: "12",
+        price: 12,
         img: "images/nike-red.jpg",
         isactive: "y"       
     }
