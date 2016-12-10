@@ -23,7 +23,8 @@
                             $location.path(app.lastpath);
                             $scope.$apply();
                         } else {
-                            $location.path('/');                          
+                            $location.path('/');
+                            //$scope.$apply();
                         }
                        
                     } else {

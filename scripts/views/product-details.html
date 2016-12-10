@@ -7,7 +7,7 @@
                 <div class="flex-viewport" style="overflow: hidden; position: relative;">
                     <ul class="slides" style="width: 1200%; transition-duration: 0.6s;">
                         <li data-thumb="{{  product.img }}" class="clone" aria-hidden="true" style="float: left; display: block;">
-                            <img ng-src="{{  product.img }}" draggable="false">
+                            <img ng-src="http://proshop.devview.info/backend/uploads/{{product.img }}" draggable="false">
                         </li>          
                     </ul>
                 </div>
@@ -47,7 +47,7 @@
                                 <option value="XL">Extra Large</option>                              
                             </select>
                         </li>
-                        <li> <button href="#" ng-click="addtocart(product,quantity)">BUY NOW</button></li>
+                        <li> <button href="#" ng-click="addtocart(product,quantity,size)">BUY NOW</button></li>
 
                         <li><span>Rating:</span><div class="rating"></div></li>
                     </ul>
@@ -110,11 +110,11 @@
                     <tbody>
                         <tr>
                             <td><p>Size</p></td>
-                            <td><p>M,S,L,XL,XXL</p></td>
+                            <td><p>M,S,L,XL</p></td>
                         </tr>
                         <tr>
                             <td><p>Color</p></td>
-                            <td><p>Gold</p></td>
+                            <td><p>{{product.desc.color}}</p></td>
                         </tr>
                     </tbody>
                 </table>

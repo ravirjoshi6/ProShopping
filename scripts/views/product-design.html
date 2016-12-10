@@ -611,34 +611,18 @@
                     <div id="save-design-popup" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 
                         <br />
-                        <img src="">
+                        <img id="finalproduct" src="">
 
                         <div class="row">
-                            <br />
-                            <div class="large-4 columns">
-                                <label for="fileName" class=" inline"><b>File Name: </b></label>
-                            </div>
-                            <div class="large-8 columns">
-                                <input id="fileName" type="text" class="radius" style="height: 32px;border: 1px solid darkgray;color: dimgray;font-weight: bold;">
-                            </div>
+                           
                         </div>
 
                         <div class="row">
-                            <div class="large-4 columns">
-                                <label for="fileType" class=" inline"><b>Save as: </b></label>
-                            </div>
-                            <div class="large-8 columns">
-                                <select id="fileType" class="radius" style="height: 32px;border: 1px solid darkgray;color: dimgray;">
-                                    <option value="png" selected>PNG Image</option>
-                                    <option value="jpeg">JPG Image</option>
-                                    <option value="gif">GIF Image</option>
-                                    <option value="bmp">BMP Image</option>
-                                    <option value="json">JSON Data</option>
-                                </select>
-                            </div>
+                           
+                            
                         </div>
 
-                        <input type="button" value=" SAVE " id="btnSave" class="button tiny radius success" style=" margin-top 0px; margin-left 40%; height 30px">
+                        <input type="button" value=" SAVE " id="btnSave" ng-click="saveproduct()" class="button tiny radius success" style=" margin-top 0px; margin-left 40%; height 30px">
                         <input type="button" value="CANCEL" id="btnCancel" class="button tiny radius alert" style=" margin-top 0px; margin-left 2%;height 30px">
                         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                     </div>

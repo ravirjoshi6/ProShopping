@@ -9,7 +9,7 @@
             type: "FULL SLEEV",
             brand: "GAP",
             gender: "male",
-            size: "xl"
+            size: "M"
         },
         rating:1,
         price: 12,

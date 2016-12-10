@@ -1,11 +1,12 @@
 ﻿
-<div class="featured">   
-    <div class="container span6 center ">
+<div class="featured">  
+    <img class="banner-image" ng-src="/images/koszulki_pisarze_instytut_ksiazki.jpg" /> 
+    <div class="container span6 center ">      
         <h3>Featured Products</h3>
         <div class="feature-grids">
             <div class="col-md-3 feature-grid jewel lazy" ng-repeat="product in productlist.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-                <a href="/product-details">
-                    <img ng-src="/backend/uploads/{{product.img}}" alt="">
+                <a href="/product-details/{{product.productid}}">
+                    <img ng-src="http://proshop.devview.info/backend/uploads/{{product.img}}" alt="">
                     <div class="arrival-info">
                         <h4>{{product.name}}</h4>
                         <p>$ {{product.price}}</p>
@@ -13,8 +14,8 @@
                         <span class="disc">{{product.rating}}</span>
                     </div>
                 </a><div class="viw">
-                    <a href="/product-details">
-                    </a><a href="/product-details"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
+                    <a href="/product-details/{{product.productid}}">
+                    </a><a href="/product-details/{{product.productid}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
                 </div>
                 <div class="shrt">
                     <a href="/product-details"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Shortlist</a>
