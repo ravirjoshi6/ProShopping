@@ -252,7 +252,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 											foreach($user as $u){
 												?>
 												<li><img src="../assets/img/user1-128x128.jpg"
-												alt="User Image"> <a class="users-list-name" href="#"><?php echo $u['firstname'].' '.$u['lastname']?></a> <span class="users-list-date">Today</span></li>	
+												alt="User Image"> <a class="users-list-name" href="#"><?php echo $u['firstname'].' '.$u['lastname']?></a> <span class="users-list-date"><?php echo $u['time']?></span></li>	
 												<?php 
 											}
 										?>

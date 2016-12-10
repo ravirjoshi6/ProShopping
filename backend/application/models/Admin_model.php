@@ -31,23 +31,29 @@ if (! defined ( 'BASEPATH' ))
 		}
 		public function get_users(){
 			$result = array();
-			$this->db->select('user.user_id, user.firstname, user.lastname');
+			$this->db->select('user.user_id, user.firstname, user.lastname, user.lastModifiedDate');
 			$this->db->limit(8, 1);
 			$this->db->order_by('lastModifiedDate','DESC');
 			foreach ( $this->db->get('user')->result () as $row ) {
-				$result[]= array('user_id' => $row->user_id, 'firstname' =>$row->firstname, 'lastname'=> $row->lastname);
+				$result[]= array('user_id' => $row->user_id, 'firstname' =>$row->firstname, 'lastname'=> $row->lastname, 'time' =>$this->date_diff($row->lastModifiedDate));
 			}
 			return $result;
 		}
 		public function get_products(){
 			$result = array();
-			$this->db->select('product.product_id, product.product_name, price, desc, productImage');
+			$this->db->select('product.product_id, product.product_name, product.price, product.desc, product.productImage, product.lastModifiedDate');
 			$this->db->limit(5, 1);
 			$this->db->order_by('lastModifiedDate','DESC');
 			foreach ( $this->db->get('product')->result () as $row ) {
-				$result[]= array('id' => $row->product_id, 'name' =>$row->product_name, 'price'=> $row->price, 'desc' => unserialize($row->desc)->details, 'productImage' => $row->productImage);
+				$result[]= array('id' => $row->product_id, 'name' =>$row->product_name, 'price'=> $row->price, 'desc' => unserialize($row->desc)->details, 'productImage' => $row->productImage, 'time' =>$this->date_diff($row->lastModifiedDate));
 			}
-			
 			return $result;
+		}
+		
+		public function date_diff($date){
+			$to=date_create($date);
+			$from=date_create(date('Y-m-d'));
+			$diff=date_diff($to,$from);
+			return $diff->format('%a days');
 		}
 	}
