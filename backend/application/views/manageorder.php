@@ -215,9 +215,9 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 				}?>
 			<!-- Main content -->
 			<div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
-            </div>
+<!--             <div class="box-header"> -->
+<!--               <h3 class="box-title">Data Table With Full Features</h3> -->
+<!--             </div> -->
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
@@ -279,14 +279,14 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 		</div>
 		<!-- /.content-wrapper -->
 
-		<footer class="main-footer">
-			<div class="pull-right hidden-xs">
-				<b>Version</b> 2.3.7
-			</div>
-			<strong>Copyright &copy; 2014-2016 <a
-				href="http://almsaeedstudio.com">Almsaeed Studio</a>.
-			</strong> All rights reserved.
-		</footer>
+<!-- 		<footer class="main-footer"> -->
+<!-- 			<div class="pull-right hidden-xs"> -->
+<!-- 				<b>Version</b> 2.3.7 -->
+<!-- 			</div> -->
+<!-- 			<strong>Copyright &copy; 2014-2016 <a -->
+<!-- 				href="http://almsaeedstudio.com">Almsaeed Studio</a>. -->
+<!-- 			</strong> All rights reserved. -->
+<!-- 		</footer> -->
 
 		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
