@@ -5,7 +5,7 @@
         <div class="feature-grids">
             <div class="col-md-3 feature-grid jewel lazy" ng-repeat="product in productlist.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                 <a href="/product-details">
-                    <img src="/backend/uploads/{{product.img}}" alt="">
+                    <img ng-src="/backend/uploads/{{product.img}}" alt="">
                     <div class="arrival-info">
                         <h4>{{product.name}}</h4>
                         <p>$ {{product.price}}</p>
