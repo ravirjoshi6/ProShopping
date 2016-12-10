@@ -407,7 +407,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 											?>
 												<li class="item">
 										<div class="product-img">
-											<img src="../assets/img/default-50x50.gif"
+											<img src=<?php echo '"../uploads/'.$product['productImage'].'"'; ?>
 												alt="Product Image">
 										</div>
 										<div class="product-info">
