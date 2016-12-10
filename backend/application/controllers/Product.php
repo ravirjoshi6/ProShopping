@@ -155,9 +155,12 @@ class Product extends CI_Controller {
 				$result ['status'] = FALSE;
 				$result ['msg'] = 'Invalid Token';
 			}
+		}else{
+			$result['status'] = false;
+			$result['error'] = $error;
 		}
 		
-		echo json_encode($product);
+		echo json_encode($result);
 		exit;
 	}
 	public function getProductDetails(){
