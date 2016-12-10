@@ -1,7 +1,7 @@
 ﻿'use strict';
 (function () {
     var app = angular.module("proshop");
-    app.controller('ProductDetailsController', function ($scope, $location, $routeParams, cart, getSingleProducts) {
+    app.controller('ProductDetailsController', function ProductDetailsController($scope, $location, $routeParams, cart, getSingleProducts) {
 
        
         var productPromise = getSingleProducts.getProduct($routeParams.id);
