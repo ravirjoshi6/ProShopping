@@ -21,8 +21,8 @@
             </table>
         </div>
         <h4>Payment Details:</h4>
-        <div  class="alert alert-danger" role="alert">
-            <p ng-hide="submitForm.name.$invalid && !submitForm.name.$pristine" class="help-block">You name is required.</p>
+        <div  class="alert alert-danger" role="alert" ng-show="errors1.length">
+            <p ng-hide="submitForm.name.$invalid && !submitForm.name.$pristine" ng-repeat="error in errors1" class="help-block">{{error}}</p>
         </div>
         <div class="form-group input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">Name</span>
@@ -35,40 +35,40 @@
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">CVV</span>
-            <input type="text" class="form-control" required max="3" min="3" placeholder="***" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" name="cvv" required max="3" min="3" placeholder="***" aria-describedby="basic-addon1">
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">Exp Date</span>
-            <input type="date" class="form-control" required placeholder="mm/dd/yyyy" aria-describedby="basic-addon1">
+            <input name="expdate" type="text" class="form-control" required placeholder="mm/dd/yyyy" aria-describedby="basic-addon1">
         </div>
         <h4>Shipping Details:</h4>
-        <div ng-show="submitForm.$valid" class="alert alert-danger" role="alert">
-           
+        <div class="alert alert-danger" role="alert" ng-show="errors2.length">
+            <p ng-hide="submitForm.name.$invalid && !submitForm.name.$pristine" ng-repeat="error in errors2" class="help-block">{{error}}</p>
         </div>
         <div class="form-group input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">Address1</span>
-            <input type="text" name="address" ng-model="address" class="form-control" required placeholder="Address-1" aria-describedby="basic-addon1">
+            <input type="text" name="add1" ng-model="address" class="form-control" required placeholder="Address-1" aria-describedby="basic-addon1">
             
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">Address2</span>
-            <input type="text" class="form-control" placeholder="Address-2" aria-describedby="basic-addon1">
+            <input type="text" name="add2" class="form-control" placeholder="Address-2" aria-describedby="basic-addon1">
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">City</span>
-            <input type="text" class="form-control" required placeholder="City" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" name="city" required placeholder="City" aria-describedby="basic-addon1">
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">State</span>
-            <input type="text" class="form-control" required placeholder="State" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" name="state" required placeholder="State" aria-describedby="basic-addon1">
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">Zip</span>
-            <input type="text" class="form-control" required placeholder="Zip" aria-describedby="basic-addon1">
+            <input type="text" name="zip" class="form-control" required placeholder="Zip" aria-describedby="basic-addon1">
         </div>
         <div class="input-group form-field-margin">
             <span class="input-group-addon" id="basic-addon1">Country</span>
-            <input type="text" class="form-control" required placeholder="Country" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" name="country" required placeholder="Country" aria-describedby="basic-addon1">
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -77,7 +77,7 @@
             <div class="col-md-6">
                 <!--  <div class="inline-block float"><a class="link-button button" ng-click="">Place Order</a></div>-->
                 <div class="inline-block float">
-                    <button type="submit" class="link-button button" ng-disabled="userForm.$invalid">Place Order</button>
+                    <button type="submit" class="link-button button" ng-click="placeOrder()" ng-disabled="userForm.$invalid">Place Order</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 'use strict';
-(function () {
-    var app = angular.module("proshop", ["ngRoute", "ui.bootstrap"]);
-    app.controller('errorController', function ($scope) { });
+(function () {    
+    var app = angular.module("proshop", ["ngRoute", "ui.bootstrap"]);   
+    app.controller('errorController', function ($scope) {    
+    });
     app.config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
         $routeProvider
@@ -46,7 +47,19 @@
             })
         .otherwise({
             redirectTo: "/error.html"
-        });
-    });
+        });       
+    });    
+    app.checklogin = function (lastpath) {
+        var token = $.cookie("authtoken");
+        if (token != null || token == "" || token != undefined) {
+            return token;
+        } else {
+            app.lastpath = lastpath;
+            return false;
+        }
+    }
+    app.setlogin = function (token) {
+        app.authtoken = token;
+    }
 }());
 

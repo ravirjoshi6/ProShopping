@@ -2,7 +2,7 @@
 (function () {
     var app = angular.module("proshop");
     app.controller('LoginController',
-        function LoginController($scope) {
+        function LoginController($scope,$location) {
             $scope.login = function (userlogin) {
                 $.ajax({
                     url: "http://capstone.devview.info/user/login",
@@ -15,8 +15,17 @@
                 .done(function (data) {
                     data = $.parseJSON(data);
                     if (data.status) {
+                        console.log(data);                       
+                        $.cookie("authtoken", data.auth_token, { expires: 1 });
+                        app.setlogin(data.auth_token);
                         $('.loginerror span').text("");
-                        window.location.replace("/");
+                        if (app.lastpath) {                           
+                            $location.path(app.lastpath);
+                            $scope.$apply();
+                        } else {
+                            $location.path('/');                          
+                        }
+                       
                     } else {
                         $('.loginerror span').text("Invalid Email/Password !!");
                     }

@@ -3,4 +3,5 @@
         $(el).removeClass('active');
     });
     $(e.target).parent().addClass('active');
+
 })
