@@ -45,6 +45,7 @@ class Admin extends CI_Controller {
 			$data['members']= $this->Admin_model->getUserCount()->total;
 			$data['orders'] = $this->Admin_model->getpendingordercount()->total;
 			$data['recent_orders'] = $this->Admin_model->getRecentOrders();
+			$data['admin_user'] = $this->session->user;
 			$this->load->view('userhome',$data);
 		}else{
 			redirect('/admin/index');
@@ -73,12 +74,12 @@ class Admin extends CI_Controller {
 				$result = $this->Product_model->createProduct($product);
 				if($result['status']){
 					$result['msg'] = 'Product successfully added.';
-					$this->load->view('addProduct', array('result'=> $result));
+					$this->load->view('addProduct', array('result'=> $result, 'admin_user' => $this->session->user));
 				}else{
-					$this->load->view('addProduct', array('result'=> $result));
+					$this->load->view('addProduct', array('result'=> $result, 'admin_user' => $this->session->user));
 				}
 			}
-			$this->load->view('addProduct');
+			$this->load->view('addProduct', array('admin_user' => $this->session->user));
 			
 		}else{
 			redirect('/admin/index');
@@ -115,34 +116,65 @@ class Admin extends CI_Controller {
 					}
 					$result = $this->Admin_model->update_product($post['id'], $data);
 					$products = $this->Product_model->get_products();
-					$this->load->view('manageProduct', array('products'=>$products, 'result' => $result));
+					$this->load->view('manageProduct', array('products'=>$products, 'result' => $result, 'admin_user' => $this->session->user));
 				}else if(!empty($post['delete'])){
 					$result = $this->Admin_model->delete_product($post['id']);
 					$products = $this->Product_model->get_products();
-					$this->load->view('manageProduct', array('products'=>$products, 'result' => $result));
+					$this->load->view('manageProduct', array('products'=>$products, 'result' => $result, 'admin_user' => $this->session->user));
 				}
 			}
 			$products = $this->Product_model->get_products();
-			$this->load->view('manageProduct', array('products'=>$products));
+			$this->load->view('manageProduct', array('products'=>$products, 'admin_user' => $this->session->user));
 		}else{
-			$this->load->view('manageProduct',$data);
+			redirect('/admin/index');
 		}
 		
 	}
 	
 	public function manageOrder(){
 		if(isset($this->session->user)){
-				
+			$post = $this->input->post();
+			if(!empty($post['update'])){
+				$data = array('orderStatus' => $post['order_status'], 'quantity' => $post['quantity']);
+				$result = $this->Admin_model->order_update($post['id'], $data);
+			}else if(!empty($post['delete'])){
+				$result = $this->Admin_model->delete_order($post['id']);
+			}
 			$orders = $this->Admin_model->getOrders();
 			$data = array('orders'=> $orders);
 			$status = array('New','Received', 'Processing', 'Pending', 'Shipped', 'Delivered');
-			$data['$order_Status'] = $status;
-			echo "<pre>";print_r($data);exit;
+			$data['order_Status'] = $status;
+			$data['admin_user'] = $this->session->user;
 			$this->load->view('manageorder',$data);
 		}else{
 			redirect('/admin/index');
 		}
 	}
 	
-	
+	public function manageuser(){
+		if(isset($this->session->user)){
+			$post = $this->input->post();
+			
+			if(!empty($post['Update'])){
+				
+				if($post['user_status'] == 'admin'){
+					$post['user_status'] = 2;
+				}else{
+					$post['user_status'] = 1;
+				}
+				$data = array('userRole' => $post['user_status']);
+				$result = $this->Admin_model->user_update( $data, $post['id']);
+			}else if(!empty($post['delete'])){
+				$result = $this->Admin_model->user_delete($post['id']);
+			}
+			$users = $this->Admin_model->getusers();
+			$data = array('users'=> $users);
+			$data['result'] = $result;
+			$data['admin_user'] = $this->session->user;
+			$data['user_role'] = array('admin','normal');
+			$this->load->view('manageuser',$data);
+		}else{
+			redirect('/admin/index');
+		}
+	}
 }

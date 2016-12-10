@@ -47,7 +47,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 			<!-- Logo -->
 			<a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>Admin</b>LTE</span>
+				<span class="logo-lg"><b>Proshopping</b></span>
 			</a>
 
 			<!-- Header Navbar: style can be found in header.less -->
@@ -67,7 +67,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
 								src="../assets/img/user2-160x160.jpg" class="user-image"
-								alt="User Image"> <span class="hidden-xs">Alexander Pierce</span>
+								alt="User Image"> <span class="hidden-xs"><?php echo $admin_user['firstName'].' '.$admin_user['lastName'];?></span>
 						</a></li>
 
 					</ul>
@@ -86,7 +86,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p>Alexander Pierce</p>
+						<p><?php echo $admin_user['firstName'].' '.$admin_user['lastName'];?></p>
 					</div>
 				</div>
 				<!-- search form -->
@@ -131,6 +131,8 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 <!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
+							<li><a href="/admin/manageorder"><i class="fa fa-circle-o"></i>
+									Manage Orders</a></li>
 							
 						</ul>
 					</li>
@@ -140,7 +142,8 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 <!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							
+							<li><a href="/admin/manageuser"><i class="fa fa-circle-o"></i>
+									Manage User</a></li>
 							
 						</ul>
 					</li>

@@ -142,7 +142,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							<!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="/admin/manageorder"><i class="fa fa-circle-o"></i>
+<li><a href="/admin/manageorder"><i class="fa fa-circle-o"></i>
 									Manage Orders</a></li>
 
 						</ul></li>
@@ -154,6 +154,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 						<ul class="treeview-menu">
 							<li><a href="/admin/manageuser"><i class="fa fa-circle-o"></i>
 									Manage User</a></li>
+
 						</ul></li>
 
 
@@ -173,12 +174,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 				<h1>Product Management</h1>
 
 			</section>
-
-			<!-- Main content -->
-			<section class="content">
-				<!-- general form elements disabled -->
-				
-				<?php if(!empty($result) && $result['status']){ ?>
+			<?php if(!empty($result) && $result->status){ ?>
 				<div class="alert alert-success alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert"
 						aria-hidden="true">&times;</button>
@@ -186,96 +182,79 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 						<i class="icon fa fa-check"></i> Success!
 					</h4>
 				</div>
-				<?php }else if(!empty($result) && empty($result['status'])){
+				<?php }else if(!empty($result) && empty($result->status)){
 					?>
 					<div class="alert alert-danger alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<h4><i class="icon fa fa-ban"></i> Fail!</h4>
-						<?php echo isset($result['msg']) ? $result['msg'] :  "An error occured. Please contact system admin.";?>
+						<?php echo isset($result->msg) ? $result->msg:  "An error occured. Please contact system admin.";?>
 					</div>
 					<?php 
 				}?>
-				<div class="box box-warning">
-					<div class="box-header with-border">
-						<h3 class="box-title">Add New Product</h3>
-					</div>
-					<!-- /.box-header -->
-					<div class="box-body">
-						<form role="form" method="post" action="/admin/addProduct"
-							enctype="multipart/form-data">
-							<!-- text input -->
-							<div class="form-group">
-								<input type="text" class="form-control"
-									placeholder="Enter Product Name" name="product_name">
-							</div>
-							<div class="form-group has-success">
-								<input type="text" class="form-control"
-									placeholder="Enter Product Description" id="inputSuccess"
-									name="desc">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control"
-									placeholder="Enter material name" name="material">
-							</div>
-							<div class="form-group">
-								<label>Color picker:</label> <input type="text"
-									class="form-control" name="color">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control"
-									placeholder="Enter Product Type" name="type">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control"
-									placeholder="Enter Brand Name" name="brand">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control"
-									placeholder="Enter price of product" name="price">
-							</div>
-							<div class="form-group">
-								<select class="form-control select2"
-									data-placeholder="Select Gender" style="width: 100%;"
-									name="gender">
-									<option>-- Select Gender --</option>
-									<option>Male</option>
-									<option>Female</option>
+			<!-- Main content -->
+			<div class="box">
+            <div class="box-header">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>USer Name</th>
+                  <th>Email</th>
+                  <th>Verification Status</th>
+                  <th>Last Login</th>
+                  <th>Security Question</th>
+                  <th>Security Answer</th>
+                  <th>User Type</th>
+                  <th>Update</th>
+                  <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($users as $user){
+                	?>
+                	<tr>
+                	<form method="post" action="/admin/manageuser">
+                	<input type="hidden" name="id" value="<?php echo $user->user_id; ?>">
+                	<td><?php echo $user->user_id;?></td>
+                  <td><?php echo $user->firstname.' '.$user->lastname;?></td>
+                  <td><?php echo $user->email;?></td>
+                   <td><?php echo $user->emailVarificationStatus;?></td>
+                   
+                   <td><?php echo $user->lastLogin;?></td>
+                   <td><?php echo $user->securityQuestion;?></td>
+                   <td><?php echo $user->securityAnswer;?></td>
+                 
+                 <td><select class="form-control select2"
+									data-placeholder="order status" style="width: 100%;"
+									name="user_status">
+									<?php 
+										foreach($user_role as $role){
+											if($role == $user->role_name){
+												?><option selected><?php echo $role?> </option><?php 
+											}else{
+												?><option><?php echo $role?> </option><?php 
+											}
+										}
+									?>
 								</select>
-							</div>
-							<div class="form-group">
-								<select class="form-control select2"
-									data-placeholder="Select Size" style="width: 100%;" name="size">
-									<option>-- Select Size --</option>
-									<option>Small</option>
-									<option>Medium</option>
-									<option>Large</option>
-									<option>Extra Large</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label class="select_file">Select Image</label> <input
-									type="file" id="exampleInputFile" name="imageFile"
-									id="imageFile">
-							</div>
-							<div class="checkbox">
-								<label> <input type="checkbox" name="isActive"> Is Active?
-								</label>
-							</div>
-							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</div>
-
-
-
-
-
-
-
-						</form>
-					</div>
-					<!-- /.box-body -->
-				</div>
-			</section>
+                   
+                   </td>
+                    <td><input type="submit" value="Update" name="Update"></td>
+                  <td><input type="submit" value="Delete" name="delete"></td>
+                  </form>
+                </tr>
+                	<?php 
+                }?>
+                
+                
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->

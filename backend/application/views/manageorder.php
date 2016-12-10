@@ -62,7 +62,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 			<!-- Logo -->
 			<a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>Admin</b>LTE</span>
+				<span class="logo-lg"><b>Proshopping</b></span>
 			</a>
 
 			<!-- Header Navbar: style can be found in header.less -->
@@ -82,7 +82,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
 								src="../assets/img/user2-160x160.jpg" class="user-image"
-								alt="User Image"> <span class="hidden-xs">Alexander Pierce</span>
+								alt="User Image"> <span class="hidden-xs"><?php echo $admin_user['firstName'].' '.$admin_user['lastName'];?></span>
 						</a></li>
 
 					</ul>
@@ -101,7 +101,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p>Alexander Pierce</p>
+						<p><?php echo $admin_user['firstName'].' '.$admin_user['lastName'];?></p>
 					</div>
 				</div>
 				<!-- search form -->
@@ -150,7 +150,8 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							<!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							
+							<li><a href="/admin/manageuser"><i class="fa fa-circle-o"></i>
+									Manage User</a></li>
 
 						</ul></li>
 
@@ -205,13 +206,15 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
                   <th>Quantity</th>
                   <th>Price</th>
                   <th>Date</th>
+                   <th>Update</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach($orders as $order){
                 	?>
                 	<tr>
-                	<form method="post" action="/admin/manageproduct">
+                	<form method="post" action="/admin/manageorder">
                 	<input type="hidden" name="id" value="<?php echo $order['order_id']; ?>">
                   <td><?php echo $order['order_id'];?></td>
                   <td><?php echo $order['user_name'];?></td>
@@ -232,7 +235,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 								</select>
                    
                    </td>
-                    <td><?php echo $order['quantity'];?></td>
+                    <td><input type="text" value = "<?php echo $order['quantity'];?>" name= "quantity"/ ></td>
                      <td><?php echo $order['price'];?></td>
                       <td><?php echo $order['date'];?></td>
                   <td><input type="submit" value="Update" name="update"></td>

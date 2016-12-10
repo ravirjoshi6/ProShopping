@@ -143,4 +143,84 @@ class Admin_model extends CI_Model {
 		}
 		return $result;
 	}
+	public function order_update($order_id, $data){
+		$result = new stdClass ();
+		if ($this->get_order_by_ide ( $order_id )->status) {
+			$this->db->where ( 'order_id', $order_id );
+			$this->db->update ( 'order', $data );
+			$result = $this->get_order_by_ide ( $order_id );
+			$result->status = TRUE;
+		} else {
+			$result->status = FALSE;
+			$result->msg = 'Product not found';
+		}
+		return $result;
+	}
+	
+	function get_order_by_ide($id) {
+		$this->db->where ( 'order_id', $id );
+		$query = $this->db->get ( 'order' );
+		$rowcount = $query->num_rows ();
+		if ($rowcount > 0) {
+			$return = $query->row ();
+			$return->status = true;
+		} else {
+			$return = new stdClass ();
+			$return->status = false;
+		}
+		return $return;
+	}
+	
+	public function delete_order($order_id){
+		$result = new stdClass ();
+		if ($this->get_order_by_ide ( $order_id )->status) {
+			$this->db->where ( 'order_id', $order_id );
+			$this->db->delete ( 'order' );
+			$result->status = TRUE;
+			$result->msg = 'Order removed';
+		} else {
+			$result->status = FALSE;
+			$result->msg = 'Order not found';
+		}
+		return $result;
+	}
+	public function getUsers() {
+		$this->db->select('user.*, user_roles.*');
+		$this->db->join('user_roles', 'user_roles.role_id = user.userRole');
+		$query = $this->db->get ( 'user' );
+		
+		$users = array ();
+	
+		foreach ( $query->result () as $row ) {
+			$users [] = $row;
+		}
+		return $users;
+	}
+	
+	public function user_update($data, $id){
+		$result = new stdClass();
+		$this->db->where('user_id', $id);
+		$this->db->update('user', $data);
+		$result->status = TRUE;
+		return $result;
+	}
+	public function user_delete( $id){
+		$result = new stdClass();
+		try{
+			$this->db->where('user_id', $id);
+			$stat = $this->db->delete('user');
+			if (!$stat)
+			{
+				$result->status = FALSE;
+				return $result;
+			}
+			$result->status = TRUE;
+			return $result;
+		}catch(Exception $e){
+			$result->status = FALSE;
+			return $result;
+		}
+		
+	}
+	
 }
