@@ -10,7 +10,7 @@
                 <th>Total</th>
             </tr>
             <tr ng-repeat="product in cart.products">
-                <td><img class="product-details" ng-src="http://proshop.devview.info/backend/uploads/{{product.img}}" alt=""></td>
+                <td><img class="product-details" ng-src="http://proshop.devview.info/backend/uploads/{{product.img}}" alt=""><img id="custome" ng-show="custome" class="product-details" src="{{product.img}}" /></td>
                 <td>{{product.name}}</td>
                 <td>{{product.size}}</td>
                 <td>{{product.quantity}}</td>
