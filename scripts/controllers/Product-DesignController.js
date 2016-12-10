@@ -11,8 +11,8 @@
                     name: "custome",                   
                     size: "M",
                     img: $('#finalproduct').attr("src"),
-                    price: 10,
-                    total: 10
+                    price: 500,
+                    total: 500
                 }                
                 cart.addtocart(product, 1, null, "M");
                 setTimeout($('#save-design-popup').foundation('reveal', 'close'), 500);
