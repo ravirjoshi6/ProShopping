@@ -24,6 +24,7 @@
                     if ($scope.errors1.length == 0 && $scope.errors2.length == 0) {
                         localStorage.removeItem('cart');
                         $location.path('/thankyou');
+                        $scope.$apply();
                     }
                 } else {
                     $location.path('/login');
