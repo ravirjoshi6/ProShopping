@@ -18,7 +18,8 @@ body {
     }
 
 .select_file{
-	
+	float : left;
+	margin-right : 25px;
 }
 
 .p-container {

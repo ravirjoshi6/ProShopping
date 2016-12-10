@@ -53,12 +53,53 @@ class Admin extends CI_Controller {
 	
 	public function addproduct(){
 		if(isset($this->session->user)){
+			$post= $this->input->post();
+			
+			if(!empty($post)){
+				
+				$config['upload_path']          = './uploads/';
+				$config['allowed_types']        = 'gif|jpg|png';
+				
+				$upload = $this->upload_data("imageFile", $config);
+				echo "<pre>";print_r($post);print_r($upload);exit;
+				$product = array();
+				$product['product_name'] = $post['product_name'];
+				$product['price'] = $post['price'];
+				$product['isActive'] = $post['isActive'];
+				$product['desc'] = serialize(array('material'=> $post['material'], 'color'=> $post['color'],'type' =>$post['type'], 'brand' => $post['brand'],'gender' => $post['gender'],'size' => $post['size'], 'details' => $post['desc']));
+				$product['rating'] =0;
+				$product['rating_count'] =0;
+				
+				$result = $this->Admin_model->add_product($product);
+			}else{
+				
+			}
+			
 			$this->load->view('addProduct');
 			
 		}else{
 			redirect('/admin/index');
 		}
 	}
+	
+	public function upload_data($fieldName, $config)
+	{
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		$return = array();
+		if($this->upload->do_upload($fieldName))
+		{
+			$data = array('upload_data' => $this->upload->data());
+			$return['productImage'] = $data['upload_data']['file_name'];
+			$return['status'] = TRUE;
+		}else{
+			$return['status']= FALSE;
+			$return['error'] = $this->upload->display_errors();
+		}
+		return $return;
+	}
+	
+	
 	public function manageproduct(){
 		echo 123;exit;
 	}
