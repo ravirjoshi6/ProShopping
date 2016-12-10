@@ -141,46 +141,30 @@ class Product extends CI_Controller {
 		return $return;
 	}
 	public function getProducts(){
-		$post = $this->input->post();
-		if (! isset ( $post ['auth_token'] )) {
-			$error [] = 'Auth Token';
+		$product = $this->Product_model->get_products();
+		if(empty($product)){
+			$result ['status'] = false;
+			$result ['msg'] = 'No products found';
 		}
-		if(empty($error)){
-			$auth_result = $this->authenticateUser ( $post ['auth_token'] );
-			if ($auth_result->status) {
-				$product = $this->Product_model->get_products();
-				$result ['status'] = true;
-				$result['products'] = $product;
-			}else{
-				$result ['status'] = FALSE;
-				$result ['msg'] = 'Invalid Token';
-			}
-		}else{
-			$result['status'] = false;
-			$result['error'] = $error;
+		else{
+			$result ['status'] = true;
+			$result['products'] = $product;
 		}
-		
 		echo json_encode($result);
 		exit;
 	}
 	public function getProductDetails(){
 		$post = $this->input->post();
-		if (! isset ( $post ['auth_token'] )) {
-			$error [] = 'Auth Token';
-		}
 		if (! isset ( $post ['id'] )) {
 			$error [] = 'ID';
 		}
 		if(empty($error)){
-			$auth_result = $this->authenticateUser ( $post ['auth_token'] );
-			if ($auth_result->status) {
-				$product = $this->Product_model->get_product_details($post ['id']);
-				$result ['status'] = true;
-				$result['products'] = $product;
-			}else{
-				$result ['status'] = FALSE;
-				$result ['msg'] = 'User not found';
-			}
+			$product = $this->Product_model->get_product_details($post ['id']);
+			$result ['status'] = true;
+			$result['products'] = $product;
+		}else{
+			$result ['status'] = false;
+			$result ['msg'] = 'Product not found';
 		}
 		echo json_encode($result);
 		exit;
