@@ -7,9 +7,14 @@ class Product extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->database ();
 		$this->load->library('ecom');
+		$this->load->library ( "JWT" );
 		header ( 'Access-Control-Allow-Origin: *' );
 		header ( "Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept" );
 		header ( 'Access-Control-Allow-Methods: GET, POST, PUT' );
+		define ( "ENCRYPTION_KEY", "itsSecret!" );
+		define ( 'CONSUMER_KEY', 'itsSecret@234!key' );
+		define ( 'CONSUMER_SECRET', 'thatsOnlysecret#$%' );
+		define ( 'CONSUMER_TTL', 86400 );
 	}
 	public function index() {
 		
@@ -43,9 +48,18 @@ class Product extends CI_Controller {
 		if (! isset ( $userData ['is_active'] )) {
 			$error [] = 'Status ';
 		}
-		
+		if (! isset ( $userData ['auth_token'] )) {
+			$error [] = 'auth_token ';
+		}
 		if (empty ( $error )) {
-			$result = $this->Product_model->createProduct ( $userData );
+			$auth_result = $this->authenticateUser ( $userData ['auth_token'] );
+			if ($auth_result->status) {
+				$userData['product_desc'] =  serialize(json_decode($userData ['product_desc']));
+				$result = $this->Product_model->createProduct ( $userData );
+			}else{
+				$result ['status'] = FALSE;
+				$result ['msg'] = 'Invalid Auth Token';
+			}
 		} else {
 			$result ['status'] = FALSE;
 			$result ['error'] = $error;
@@ -68,16 +82,25 @@ class Product extends CI_Controller {
 			$data ['price'] = $userData ['product_price'];
 		}
 		if (isset ( $userData ['product_desc'] )) {
-			$data ['description'] = $userData ['product_desc'];
+			$data ['desc'] = serialize(json_decode($userData ['product_desc']));
 		}
 		if (isset ( $userData ['is_active'] ) && $userData ['is_active'] == "true") {
 			$data ['isActive'] = TRUE;
 		} else {
 			$data ['isActive'] = FALSE;
 		}
-		
+		if (isset ( $userData ['auth_token'] )) {
+			$data ['auth_token'] =$userData ['auth_token'];
+		}
 		if (empty ( $error )) {
-			$result = $this->Product_model->update_product ( $userData ['product_name'], $data );
+			$auth_result = $this->authenticateUser ( $data ['auth_token'] );
+			if ($auth_result->status) {
+				unset($data['auth_token']);
+				$result = $this->Product_model->update_product ( $userData ['product_name'], $data );
+			}else{
+				$result ['status'] = FALSE;
+				$result ['msg'] = 'Invalid Auth Token';
+			}
 		} else {
 			$result ['status'] = false;
 			$result ['msg'] = 'User not found.';
@@ -87,8 +110,14 @@ class Product extends CI_Controller {
 	}
 	public function delete() {
 		$userData = $this->input->post ();
-		if (! empty ( $userData ) && ! empty ( $userData ['product_name'] )) {
-			$result = $this->Product_model->delete_product ( $userData ['product_name'] );
+		if (! empty ( $userData ) && ! empty ( $userData ['product_id'] ) && !empty($userData['auth_token'])) {
+			$auth_result = $this->authenticateUser ( $userData ['auth_token'] );
+			if ($auth_result->status) {
+				$result = $this->Product_model->delete_product ( $userData ['product_id'] );
+			}else{
+				$result ['status'] = FALSE;
+				$result ['msg'] = 'Invalid Auth Token';
+			}
 		} else {
 			$result ['status'] = FALSE;
 			$result ['msg'] = 'Product not found';
@@ -112,17 +141,50 @@ class Product extends CI_Controller {
 		return $return;
 	}
 	public function getProducts(){
-		$product = $this->Product_model->get_products();
+		$post = $this->input->post();
+		if (! isset ( $post ['auth_token'] )) {
+			$error [] = 'Auth Token';
+		}
+		if(empty($error)){
+			$auth_result = $this->authenticateUser ( $post ['auth_token'] );
+			if ($auth_result->status) {
+				$product = $this->Product_model->get_products();
+				$result ['status'] = true;
+				$result['products'] = $product;
+			}else{
+				$result ['status'] = FALSE;
+				$result ['msg'] = 'Invalid Token';
+			}
+		}
+		
 		echo json_encode($product);
 		exit;
 	}
 	public function getProductDetails(){
-		echo json_encode($this->Product_model->get_products());
+		$post = $this->input->post();
+		if (! isset ( $post ['auth_token'] )) {
+			$error [] = 'Auth Token';
+		}
+		if (! isset ( $post ['id'] )) {
+			$error [] = 'ID';
+		}
+		if(empty($error)){
+			$auth_result = $this->authenticateUser ( $post ['auth_token'] );
+			if ($auth_result->status) {
+				$product = $this->Product_model->get_product_details($post ['id']);
+				$result ['status'] = true;
+				$result['products'] = $product;
+			}else{
+				$result ['status'] = FALSE;
+				$result ['msg'] = 'User not found';
+			}
+		}
+		echo json_encode($result);
 		exit;
 	}
 	public function ratemyproduct(){
 		$userData = $this->input->post ();
-		$required_fields = array( 'product_id', 'rating');
+		$required_fields = array( 'product_id', 'rating', 'auth_token');
 		$error = array();
 		$result = array();
 		foreach ($required_fields as $field){
@@ -131,16 +193,39 @@ class Product extends CI_Controller {
 			}
 		}
 		if(empty($error)){
-			if($this->Product_model->rateProduct($userData['product_id'], $userData['rating'])){
-				$result['status'] = true;
+			$auth_result = $this->authenticateUser ( $userData ['auth_token'] );
+			if ($auth_result->status) {
+				if($this->Product_model->rateProduct($userData['product_id'], $userData['rating'])){
+					$result['status'] = true;
+				}else{
+					$result['status'] = false;
+				}
 			}else{
-				$result['status'] = false;
+				$result ['status'] = FALSE;
+				$result ['msg'] = 'Invalid token';
 			}
-			
 		}else{
 			$error['status'] = false;
 			$result = $error;
 		}
 		echo json_encode($result);exit;
+	}
+	public function authenticateUser($auth_token) {
+		try {
+			$user = $this->jwt->decode ( $auth_token, CONSUMER_SECRET );
+			$result = $user;
+			$result->status = TRUE;
+		} catch ( Exception $e ) {
+			$result = new stdClass ();
+			$result->status = FALSE;
+			$result->msg = 'Invalid Token';
+		}
+		return $result;
+	}
+	public function serialize(){
+		$data = $this->input->post();
+		print_r(serialize(json_decode($data['data'])));
+	//	print_r(unserialize($data['data']));
+		exit;
 	}
 }

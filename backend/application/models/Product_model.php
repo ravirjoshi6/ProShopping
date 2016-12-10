@@ -11,7 +11,7 @@ class Product_model extends CI_Model {
 			$data = array (
 					'product_name' => $product['product_name'],
 					'price' => $product['product_price'],
-					'description' => $product['product_desc'],
+					'desc' => $product['product_desc'],
 					'lastModifiedDate' =>date("Y-m-d h:i:sa"),
 					'productImage' => $product['productImage'],
 			);
@@ -44,6 +44,22 @@ class Product_model extends CI_Model {
 		}
 		return $return;
 	}
+	
+	function get_product_by_id($product_id) {
+		$this->db->where ( 'product_id', $product_id);
+		$query = $this->db->get ( 'product' );
+		$rowcount = $query->num_rows ();
+		if ($rowcount > 0) {
+			$return = $query->row ();
+			$return->status = true;
+		} else {
+			$return = new stdClass();
+			$return->status = false;
+		}
+		return $return;
+	}
+	
+	
 	function update_product($product_name = null, $data){
 		$result = new stdClass();
 		if($this->get_product_by_name($product_name)->status){
@@ -57,9 +73,9 @@ class Product_model extends CI_Model {
 		}		
 		return $result;
 	}
-	public function delete_product($product_name){
-		if($this->get_product_by_name($product_name)->status){
-			$this->db->where('product_name', $product_name);
+	public function delete_product($product_id){
+		if($this->get_product_by_id($product_id)->status){
+			$this->db->where('product_id', $product_id);
 			$this->db->delete('product');
 			$result['status'] = TRUE;
 			$result['msg'] = 'Product removed';
@@ -85,12 +101,35 @@ class Product_model extends CI_Model {
 	public function get_products(){
 		//$data = $this->db->get('products');
 		$product = array ();
-		
+		$this->db->select('product.product_id, product.product_name, product.price, product.desc, product.isActive, product.productImage, product.rating');
 		foreach ( $this->db->get('product')->result () as $row ) {
+			if($row->isActive){
+				$row->isActive = 'y';
+			}else{
+				$row->isActive = 'n';
+			}
+			$row->desc = unserialize($row->desc);
 			$product [] = $row;
+			
 		}
 		return $product;
 	}
+	
+	function get_product_details($product_id) {
+		$this->db->where ( 'product_id', $product_id);
+		$query = $this->db->get ( 'product' );
+		$rowcount = $query->num_rows ();
+		if ($rowcount > 0) {
+			$return = $query->row ();
+			$return->status = true;
+		} else {
+			$return = new stdClass();
+			$return->status = false;
+		}
+		return $return;
+	}
+	
+	
 	public function rateProduct($product_id, $rating){
 		$this->db->select ( 'product.rating, product.rating_count' );
 		$this->db->where ( 'product_id', $product_id );
@@ -102,4 +141,6 @@ class Product_model extends CI_Model {
 		$this->db->where ( 'product_id', $product_id);
 		return $this->db->update('product', array('rating' => $new_rating));
 	}
+	
+	
 }
