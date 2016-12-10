@@ -1,78 +1,85 @@
 ﻿<div class="container">
-    <h4>Your Order:</h4>
-    <div class="row">
-        <table class="cart-table">
-            <tr>
-                <th>Product</th>
-                <th>image</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-            </tr>
-            <tr ng-repeat="product in cart.products">
-                <td><img class="product-details" src="{{product.img}}" alt=""></td>
-                <td>{{product.name}}</td>
-                <td>{{product.quantity}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.total}}</td>
-            </tr>
-            <tr><td colspan="4"><b>Sub-Total</b></td><td>{{cart.carttotal}}</td></tr>
-        </table>
-    </div>
-    <h4>Payment Details:</h4>
-    <div class="alert alert-danger" role="alert">
-        <strong>Oh snap!</strong> Change a few things up and try submitting again.
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Name</span>
-        <input type="text" class="form-control" required placeholder="Your Name" aria-describedby="basic-addon1">
-    </div>   
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Card Number</span>
-        <input type="text" class="form-control" required placeholder="xxxx-xxxx-xxxx-xxxx" aria-describedby="basic-addon1">
-    </div>   
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">CVV</span>
-        <input type="text" class="form-control" required max="3" min="3" placeholder="***" aria-describedby="basic-addon1">
-    </div>   
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Exp Date</span>
-        <input type="date" class="form-control" required placeholder="mm/dd/yyyy" aria-describedby="basic-addon1">
-    </div>  
-    <h4>Shipping Details:</h4> 
-    <div class="alert alert-danger" role="alert">
-        <strong>Oh snap!</strong> Change a few things up and try submitting again.
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Address1</span>
-        <input type="text" class="form-control" required placeholder="Address-1" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Address2</span>
-        <input type="text" class="form-control" placeholder="Address-2" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">City</span>
-        <input type="text" class="form-control" required placeholder="City" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">State</span>
-        <input type="text" class="form-control" required placeholder="State" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Zip</span>
-        <input type="text" class="form-control" required placeholder="Zip" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group form-field-margin">
-        <span class="input-group-addon" id="basic-addon1">Country</span>
-        <input type="text" class="form-control" required placeholder="Country" aria-describedby="basic-addon1">
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="inline-block"><a class="link-button button" href="/#confirmorder">View Order</a></div>
+    <form name="checkoutForm" ng-submit="submitForm(checkoutForm.$valid)" novalidate>
+        <h4>Your Order:</h4>
+        <div class="row">
+            <table class="cart-table">
+                <tr>
+                    <th>Product</th>
+                    <th>image</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                <tr ng-repeat="product in cart.products">
+                    <td><img class="product-details" src="{{product.img}}" alt=""></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.total}}</td>
+                </tr>
+                <tr><td colspan="4"><b>Sub-Total</b></td><td>{{cart.carttotal}}</td></tr>
+            </table>
         </div>
-        <div class="col-md-6">
-            <div class="inline-block float"><a class="link-button button" ng-click="" >Place Order</a></div>
+        <h4>Payment Details:</h4>
+        <div  class="alert alert-danger" role="alert">
+            <p ng-hide="submitForm.name.$invalid && !submitForm.name.$pristine" class="help-block">You name is required.</p>
         </div>
-    </div>  
+        <div class="form-group input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Name</span>
+            <input type="text" name="name" class="form-control" required placeholder="Your Name" ng-model="name" aria-describedby="basic-addon1">
+            
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Card Number</span>
+            <input type="text" name="card" class="form-control" required payments-validate="card" placeholder="xxxx-xxxx-xxxx-xxxx" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">CVV</span>
+            <input type="text" class="form-control" required max="3" min="3" placeholder="***" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Exp Date</span>
+            <input type="date" class="form-control" required placeholder="mm/dd/yyyy" aria-describedby="basic-addon1">
+        </div>
+        <h4>Shipping Details:</h4>
+        <div ng-show="submitForm.$valid" class="alert alert-danger" role="alert">
+           
+        </div>
+        <div class="form-group input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Address1</span>
+            <input type="text" name="address" ng-model="address" class="form-control" required placeholder="Address-1" aria-describedby="basic-addon1">
+            
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Address2</span>
+            <input type="text" class="form-control" placeholder="Address-2" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">City</span>
+            <input type="text" class="form-control" required placeholder="City" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">State</span>
+            <input type="text" class="form-control" required placeholder="State" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Zip</span>
+            <input type="text" class="form-control" required placeholder="Zip" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group form-field-margin">
+            <span class="input-group-addon" id="basic-addon1">Country</span>
+            <input type="text" class="form-control" required placeholder="Country" aria-describedby="basic-addon1">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="inline-block"><a class="link-button button" href="/#confirmorder">View Order</a></div>
+            </div>
+            <div class="col-md-6">
+                <!--  <div class="inline-block float"><a class="link-button button" ng-click="">Place Order</a></div>-->
+                <div class="inline-block float">
+                    <button type="submit" class="link-button button" ng-disabled="userForm.$invalid">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
