@@ -130,11 +130,15 @@ class Admin extends CI_Controller {
 		
 	}
 	
-	public function manageOrders(){
+	public function manageOrder(){
 		if(isset($this->session->user)){
 				
 			$orders = $this->Admin_model->getOrders();
-			$this->load->view('userhome',$data);
+			$data = array('orders'=> $orders);
+			$status = array('New','Received', 'Processing', 'Pending', 'Shipped', 'Delivered');
+			$data['$order_Status'] = $status;
+			echo "<pre>";print_r($data);exit;
+			$this->load->view('manageorder',$data);
 		}else{
 			redirect('/admin/index');
 		}

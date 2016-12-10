@@ -118,6 +118,7 @@ class Product_model extends CI_Model {
 	}
 	
 	function get_product_details($product_id) {
+		$this->db->select('product.product_id as productid, product.product_name as name, product.price as price, product.desc as desc, product.isActive as isactive, product.productImage as img, product.rating');
 		$this->db->where ( 'product_id', $product_id);
 		$query = $this->db->get ( 'product' );
 		$rowcount = $query->num_rows ();

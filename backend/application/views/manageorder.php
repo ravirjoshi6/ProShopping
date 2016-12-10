@@ -198,37 +198,43 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                <th>Order No</th>
+                  <th>User Name</th>
                   <th>Product Name</th>
-                  <th>Product Description</th>
-                  <th>Product Image</th>
-                  <th>price</th>
-                  <th>Color</th>
-                  <th>Brand</th>
-                  <th>Type</th>
-                  <th>Gender</th>
-                  <th>Active?</th>
-                  <th>Rating</th>
-                  <th>Update</th>
-                  <th>Delete</th>
+                  <th>Order Status</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Date</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($products as $product){
+                <?php foreach($orders as $order){
                 	?>
                 	<tr>
                 	<form method="post" action="/admin/manageproduct">
-                	<input type="hidden" name="id" value="<?php echo $product->productid; ?>">
-                  <td><?php echo $product->name;?></td>
-                  <td><?php echo $product->desc->details;?></td>
-                  <td><img src = "<?php echo '/uploads/'.$product->img;?>" /></td>
-                   <td><?php echo $product->price;?></td>
+                	<input type="hidden" name="id" value="<?php echo $order['order_id']; ?>">
+                  <td><?php echo $order['order_id'];?></td>
+                  <td><?php echo $order['user_name'];?></td>
+                   <td><?php echo $order['product_name'];?></td>
                    
-                   <td><?php echo $product->desc->color;?></td>
-                   <td><?php echo $product->desc->brand;?></td>
-                   <td><?php echo $product->desc->type;?></td>
-                   <td><?php echo $product->desc->gender;?></td>
-                   <td><input type="checkbox" name="isActive" <?php echo ($product->isactive== 'y')? 'checked': '' ?>> </td>
-                  <td><?php echo $product->rating;?></td>
+                   <td><select class="form-control select2"
+									data-placeholder="order status" style="width: 100%;"
+									name="order_status">
+									<?php 
+										foreach($order_Status as $status){
+											if($status == $order['orderStatus']){
+												?><option selected><?php echo $status?> </option><?php 
+											}else{
+												?><option><?php echo $status?> </option><?php 
+											}
+										}
+									?>
+								</select>
+                   
+                   </td>
+                    <td><?php echo $order['quantity'];?></td>
+                     <td><?php echo $order['price'];?></td>
+                      <td><?php echo $order['date'];?></td>
                   <td><input type="submit" value="Update" name="update"></td>
                   <td><input type="submit" value="Delete" name="delete"></td>
                   </form>
