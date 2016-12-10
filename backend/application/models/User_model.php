@@ -21,7 +21,7 @@ class User_model extends CI_Model {
 	 */
 	function checkLogin($email, $password) {
 		$result = array ();
-		$this->db->select ( 'user.user_id, user_roles.role_name' );
+		$this->db->select ( 'user.user_id, user_roles.role_name, user.firstname, user.lastname, user.email' );
 		$this->db->where ( 'email', $email );
 		$this->db->where ( 'password', md5 ( $password ) );
 		$this->db->where ( 'emailVarificationStatus', 'verified' );
@@ -34,6 +34,10 @@ class User_model extends CI_Model {
 			$result ['status'] = true;
 			$result ['id'] = $ret->user_id;
 			$result ['userRole'] = $ret->role_name;
+			$result['firstName'] = $ret->firstname;
+			$result['lastName'] = $ret->lastname;
+			$result['email'] = $ret->email;
+			
 		} else {
 			$result ['msg'] = 'User not found';
 			$result ['status'] = FALSE;
@@ -68,6 +72,7 @@ class User_model extends CI_Model {
 		$this->db->where ( 'email', $email_id );
 		$this->db->join ( 'user_roles', 'user.userRole = user_roles.role_id' );
 		$query = $this->db->get ( 'user' );
+		
 		$rowcount = $query->num_rows ();
 		if ($rowcount > 0) {
 			$return = $query->row ();
@@ -80,15 +85,16 @@ class User_model extends CI_Model {
 	}
 	function update_user($email, $data) {
 		if ($this->getUserById ( $email )->status) {
-			
 			if (isset ( $data ['user_role'] )) {
 				$data ['userRole'] = $this->getUserRoleId ( $data ['user_role'] );
 				unset ( $data ['user_role'] );
 			}
 			$this->db->where ( 'email', $email );
 			$this->db->update ( 'user', $data );
+			$user = $this->getUserById($email);
 			$result ['status'] = TRUE;
 			$result ['msg'] = 'User profile updated';
+			$result['user'] = $user;
 		} else {
 			$result ['status'] = FALSE;
 			$result ['msg'] = 'User not found';
