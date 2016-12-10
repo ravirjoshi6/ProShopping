@@ -2,7 +2,8 @@
 (function () {    
     var app = angular.module("proshop", ["ngRoute", "ui.bootstrap"]);   
     app.controller('errorController', function ($scope) {
-        if (app.token) {
+        app.token = $.cookie("authtoken");
+        if (app.authtoken) {
             $scope.logeddin = true;
         } else {
             $scope.logeddin = false;
@@ -35,7 +36,7 @@
                 templateUrl: "/scripts/views/account.html",
                 controller: "AccountController"
             })
-            .when("/product-details", {
+            .when("/product-details/:id", {
                 templateUrl: "/scripts/views/product-details.html",
                 controller: "ProductDetailsController"
             })
@@ -50,6 +51,9 @@
             .when("/faq", {
                 templateUrl: "/scripts/views/faq.html"               
             })
+             .when("/thankyou", {
+                 templateUrl: "/scripts/views/thankyou.html"
+             })
         .otherwise({
             redirectTo: "/error.html"
         });       

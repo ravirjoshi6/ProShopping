@@ -3066,3 +3066,8 @@ color:white;
     margin-left: auto;
     margin-right: auto;
 }
+
+.banner-image {
+    width: 100%;
+    height: auto;
+}
