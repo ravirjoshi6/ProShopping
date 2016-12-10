@@ -30,12 +30,23 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Admin</b>LTE</a>
+    <a href="#"><b>Proshopping Admin</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Sign in</p>
+ 	
 
+         <?php if(isset($msg)){
+          	?>
+          	<div class="callout callout-danger">
+          <h4>Warning!</h4>
+          	 <p><?php echo $msg?></p>
+          	  </div>
+          	<?php 
+          	unset($msg);
+          }?>
+       
     <form action="/admin/index" method="post">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="email">

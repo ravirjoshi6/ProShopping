@@ -26,10 +26,10 @@ class Admin extends CI_Controller {
 				$this->session->user = $result;
 				redirect('/admin/userhome');
 			}else{
-				$this->load->view('login');
+				$this->load->view('login',array('msg' =>'User not found. Try again'));
 			}
 		}else{
-			$this->load->view('login');
+			$this->load->view('login', array());
 		}
 		//$this->load->view('login');
 	}
