@@ -189,7 +189,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 
 							<div class="info-box-content">
 								<span class="info-box-text">Pending Orders</span> <span
-									class="info-box-number">760</span>
+									class="info-box-number"><?php echo $orders?></span>
 							</div>
 							<!-- /.info-box-content -->
 						</div>
@@ -203,7 +203,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 
 							<div class="info-box-content">
 								<span class="info-box-text">Members</span> <span
-									class="info-box-number">2,000</span>
+									class="info-box-number"><?php echo $members;?></span>
 							</div>
 							<!-- /.info-box-content -->
 						</div>
@@ -321,48 +321,38 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 											</tr>
 										</thead>
 										<tbody>
+										
+										<?php if(empty($recent_orders)){ ?>
+											<tr><td>No Orders Found</td></tr>
+										<?php 	
+										} else {foreach($recent_orders as $order){
+											?>
 											<tr>
-												<td><a href="pages/examples/invoice.html">OR9842</a></td>
-												<td>Call of Duty IV</td>
-												<td><span class="label label-success">Shipped</span></td>
+												<td><a href="pages/examples/invoice.html"><?php echo $order['order_id']; ?></a></td>
+												<td><?php echo $order['product_name']; ?></td>
+												<?php if($order['orderStatus'] == 'Shipped') {
+													?>
+													<td><span class="label label-success">Shipped</span></td>
+													<?php 
+												}else if($order['orderStatus'] == 'Pending'){
+													?>
+														<td><span class="label label-warning">Pending</span></td>
+													<?php 
+												}else if($order['orderStatus'] == 'Delivered'){
+													?>
+											<td><span class="label label-danger">Delivered</span></td>
+											<?php 
+												}else if($order['orderStatus'] == 'Processing'){
+													?>
+													<td><span class="label label-info">Processing</span></td>
+													<?php 
+												}?>
+												
 												
 											</tr>
-											<tr>
-												<td><a href="pages/examples/invoice.html">OR1848</a></td>
-												<td>Samsung Smart TV</td>
-												<td><span class="label label-warning">Pending</span></td>
-												
-											</tr>
-											<tr>
-												<td><a href="pages/examples/invoice.html">OR7429</a></td>
-												<td>iPhone 6 Plus</td>
-												<td><span class="label label-danger">Delivered</span></td>
-												
-											</tr>
-											<tr>
-												<td><a href="pages/examples/invoice.html">OR7429</a></td>
-												<td>Samsung Smart TV</td>
-												<td><span class="label label-info">Processing</span></td>
-												
-											</tr>
-											<tr>
-												<td><a href="pages/examples/invoice.html">OR1848</a></td>
-												<td>Samsung Smart TV</td>
-												<td><span class="label label-warning">Pending</span></td>
-												
-											</tr>
-											<tr>
-												<td><a href="pages/examples/invoice.html">OR7429</a></td>
-												<td>iPhone 6 Plus</td>
-												<td><span class="label label-danger">Delivered</span></td>
-												
-											</tr>
-											<tr>
-												<td><a href="pages/examples/invoice.html">OR9842</a></td>
-												<td>Call of Duty IV</td>
-												<td><span class="label label-success">Shipped</span></td>
-												
-											</tr>
+											<?php 
+										}}?>
+											
 										</tbody>
 									</table>
 								</div>
@@ -370,8 +360,8 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							</div>
 							<!-- /.box-body -->
 							<div class="box-footer clearfix">
-								<a href="javascript:void(0)"
-									class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
+<!-- 								<a href="javascript:void(0)" -->
+<!-- 									class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a> -->
 								<a href="javascript:void(0)"
 									class="btn btn-sm btn-default btn-flat pull-right">View All
 									Orders</a>
@@ -416,7 +406,6 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 											</a> <span class="product-description"> <?php echo $product['desc'];?></span>
 										</div>
 									</li>		
-											
 											<?php 
 										}
 									?>

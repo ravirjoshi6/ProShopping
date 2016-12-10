@@ -17,6 +17,10 @@ body {
         -ms-transition: 0.5s all;
     }
 
+.select_file{
+	
+}
+
 .p-container {
     padding-bottom: 30px;
 }

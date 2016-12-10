@@ -101,12 +101,12 @@ class Product_model extends CI_Model {
 	public function get_products(){
 		//$data = $this->db->get('products');
 		$product = array ();
-		$this->db->select('product.product_id, product.product_name, product.price, product.desc, product.isActive, product.productImage, product.rating');
+		$this->db->select('product.product_id as productid, product.product_name as name, product.price as price, product.desc as desc, product.isActive as isactive, product.productImage as img, product.rating');
 		foreach ( $this->db->get('product')->result () as $row ) {
-			if($row->isActive){
-				$row->isActive = 'y';
+			if($row->isactive){
+				$row->isactive = 'y';
 			}else{
-				$row->isActive = 'n';
+				$row->isactive = 'n';
 			}
 			$row->desc = unserialize($row->desc);
 			$product [] = $row;
