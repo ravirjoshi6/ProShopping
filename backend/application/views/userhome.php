@@ -112,7 +112,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 <!-- 						</span> -->
 					</a>
 						</li>
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>Product Management</span> 
+					<li class="treeview"><a href="/admin/userhome"> <i class="fa fa-files-o"></i> <span>Product Management</span> 
 <!-- 					<span class="pull-right-container"> <span -->
 <!-- 								class="label label-primary pull-right">4</span> -->
 <!-- 						</span> -->
@@ -125,16 +125,12 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							
 						</ul>
 					</li>
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>Order Management</span> 
+					<li class="treeview"><a href="/admin/manageorder"> <i class="fa fa-files-o"></i> <span>Order Management</span> 
 <!-- 					<span class="pull-right-container"> <span -->
 <!-- 								class="label label-primary pull-right">4</span> -->
 <!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>
-									Add New Product</a></li>
-							<li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>
-									Manage Products</a></li>
 							
 						</ul>
 					</li>
@@ -144,10 +140,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 <!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>
-									Add New Product</a></li>
-							<li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>
-									Manage Products</a></li>
+							
 							
 						</ul>
 					</li>

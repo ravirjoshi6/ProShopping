@@ -19,6 +19,9 @@ class Order extends CI_Controller {
 	}
 	public function create() {
 		$post = $this->input->post();
+		if(empty($post)){
+			$post = json_decode(file_get_contents('php://input'),true);
+		}
 		$error =array();
 		$result = array();
 		$required_fields = array('product_id', 'user_id', 'quantity', 'price');

@@ -22,6 +22,9 @@ class Product extends CI_Controller {
 	}
 	public function create() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$error = array ();
 		$result = array ();
 		
@@ -69,6 +72,9 @@ class Product extends CI_Controller {
 	}
 	public function update() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$error = array ();
 		$result = array ();
 		$data = array ();
@@ -110,6 +116,9 @@ class Product extends CI_Controller {
 	}
 	public function delete() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		if (! empty ( $userData ) && ! empty ( $userData ['product_id'] ) && !empty($userData['auth_token'])) {
 			$auth_result = $this->authenticateUser ( $userData ['auth_token'] );
 			if ($auth_result->status) {
@@ -155,6 +164,9 @@ class Product extends CI_Controller {
 	}
 	public function getProductDetails(){
 		$post = $this->input->post();
+		if(empty($post)){
+			$post = json_decode(file_get_contents('php://input'),true);
+		}
 		if (! isset ( $post ['id'] )) {
 			$error [] = 'ID';
 		}
@@ -171,6 +183,9 @@ class Product extends CI_Controller {
 	}
 	public function ratemyproduct(){
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$required_fields = array( 'product_id', 'rating', 'auth_token');
 		$error = array();
 		$result = array();

@@ -19,6 +19,7 @@ class Admin extends CI_Controller {
 
 	public function index(){
 		$post = $this->input->post();
+		
 		if(!empty($post)) {
 			$user = array('email' => $post['email'], 'password' => $post['password']);
 			$result = $this->Admin_model->check_login($user);
@@ -61,20 +62,22 @@ class Admin extends CI_Controller {
 				$config['allowed_types']        = 'gif|jpg|png';
 				
 				$upload = $this->upload_data("imageFile", $config);
-				echo "<pre>";print_r($post);print_r($upload);exit;
 				$product = array();
 				$product['product_name'] = $post['product_name'];
 				$product['price'] = $post['price'];
-				$product['isActive'] = $post['isActive'];
+				$product['is_active'] = $post['isActive'];
 				$product['desc'] = serialize(array('material'=> $post['material'], 'color'=> $post['color'],'type' =>$post['type'], 'brand' => $post['brand'],'gender' => $post['gender'],'size' => $post['size'], 'details' => $post['desc']));
 				$product['rating'] =0;
 				$product['rating_count'] =0;
-				
-				$result = $this->Admin_model->add_product($product);
-			}else{
-				
+				$product['productImage'] = $upload['productImage'];
+				$result = $this->Product_model->createProduct($product);
+				if($result['status']){
+					$result['msg'] = 'Product successfully added.';
+					$this->load->view('addProduct', array('result'=> $result));
+				}else{
+					$this->load->view('addProduct', array('result'=> $result));
+				}
 			}
-			
 			$this->load->view('addProduct');
 			
 		}else{
@@ -101,6 +104,41 @@ class Admin extends CI_Controller {
 	
 	
 	public function manageproduct(){
-		echo 123;exit;
+		if(isset($this->session->user)){
+			$post = $this->input->post();
+			if(!empty($post)){
+				if(!empty($post['update'])){
+					if(isset($post['isActive']) && $post['isActive']=='on'){
+						$data['isActive'] =1;
+					}else{
+						$data['isActive'] =0;
+					}
+					$result = $this->Admin_model->update_product($post['id'], $data);
+					$products = $this->Product_model->get_products();
+					$this->load->view('manageProduct', array('products'=>$products, 'result' => $result));
+				}else if(!empty($post['delete'])){
+					$result = $this->Admin_model->delete_product($post['id']);
+					$products = $this->Product_model->get_products();
+					$this->load->view('manageProduct', array('products'=>$products, 'result' => $result));
+				}
+			}
+			$products = $this->Product_model->get_products();
+			$this->load->view('manageProduct', array('products'=>$products));
+		}else{
+			$this->load->view('manageProduct',$data);
+		}
+		
 	}
+	
+	public function manageOrders(){
+		if(isset($this->session->user)){
+				
+			$orders = $this->Admin_model->getOrders();
+			$this->load->view('userhome',$data);
+		}else{
+			redirect('/admin/index');
+		}
+	}
+	
+	
 }

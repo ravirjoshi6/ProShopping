@@ -20,6 +20,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function create() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$error = array ();
 		$result = array ();
 		if (! isset ( $userData ['firstName'] )) {
@@ -68,6 +71,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function login() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$error = array ();
 		$result = array ();
 		if (! isset ( $userData ['email'] )) {
@@ -93,6 +99,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function update() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$error = array ();
 		$result = array ();
 		$data = array ();
@@ -139,6 +148,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function delete() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		if (! empty ( $userData ) && ! empty ( $userData ['auth_token'] )) {
 			$auth_result = $this->authenticateUser ( $userData ['auth_token'] );
 			if ($auth_result->status) {
@@ -157,6 +169,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function createAdmin() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		$error = array ();
 		$result = array ();
 		if (! isset ( $userData ['firstName'] )) {
@@ -205,6 +220,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function getUsers() {
 		$userData = $this->input->post ();
+		if(empty($userData)){
+			$userData = json_decode(file_get_contents('php://input'),true);
+		}
 		if (! isset ( $userData ['auth_token'] )) {
 			$error [] = 'Auth Token';
 		}
@@ -232,6 +250,9 @@ class User extends CI_Controller {
 	// tokrn implemented.
 	public function getUserDetails() {
 		$post = $this->input->post ();
+		if(empty($post)){
+			$post = json_decode(file_get_contents('php://input'),true);
+		}
 		$result = array ();
 		if (! isset ( $post ['auth_token'] )) {
 			$result ['msg'] = 'Auth token not found';
@@ -252,6 +273,9 @@ class User extends CI_Controller {
 	// token implemented.
 	public function changePassword() {
 		$post = $this->input->post ();
+		if(empty($post)){
+			$post = json_decode(file_get_contents('php://input'),true);
+		}
 		$result = array ();
 		$error = array ();
 		if (! isset ( $post ['auth_token'] )) {
@@ -279,6 +303,9 @@ class User extends CI_Controller {
 	}
 	public function forgotPassword() {
 		$post = $this->input->post ();
+		if(empty($post)){
+			$post = json_decode(file_get_contents('php://input'),true);
+		}
 		$result = array ();
 		$error = array ();
 		if (! isset ( $post ['email'] )) {
@@ -339,6 +366,9 @@ class User extends CI_Controller {
 	// token implemented
 	public function create_address() {
 		$post = $this->input->post ();
+		if(empty($post)){
+			$post = json_decode(file_get_contents('php://input'),true);
+		}
 		$required_fields = array (
 				'user_id',
 				'address_1',

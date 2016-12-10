@@ -81,4 +81,53 @@ if (! defined ( 'BASEPATH' ))
 			}
 			return $result;
 		}
+		
+		function update_product($product_id = null, $data){
+			$result = new stdClass();
+			if($this->get_product_by_ide($product_id)->status){
+				$this->db->where ( 'product_id', $product_id);
+				$this->db->update('product', $data);
+				$result = $this->get_product_by_ide($product_id);
+				$result->status = TRUE;
+			}else{
+				$result->status = FALSE;
+				$result->msg='Product not found';
+			}
+			return $result;
+		}
+		
+		function get_product_by_ide($id) {
+			$this->db->where ( 'product_id', $id);
+			$query = $this->db->get ( 'product' );
+			$rowcount = $query->num_rows ();
+			if ($rowcount > 0) {
+				$return = $query->row ();
+				$return->status = true;
+			} else {
+				$return = new stdClass();
+				$return->status = false;
+			}
+			return $return;
+		}
+		
+		public function delete_product($product_id){
+			$result = new stdClass();
+			if($this->get_product_by_ide($product_id)->status){
+				$this->db->where('product_id', $product_id);
+				$this->db->delete('product');
+				$result->status = TRUE;
+				$result->msg = 'Product removed';
+			}else{
+				$result->status = FALSE;
+				$result->msg='Product not found';
+			}
+			return $result;
+		}
+		
+		public function getOrders(){
+			$this->db->select('order.id, order.quantity, order.price, order.orderStatus, order.orderDate, product.name');
+			$this->db->join('product', 'product.product_id = order.product_id');
+			$this->db->order_by('order.lastModifiedDate','DESC');
+			$this->db->get('order');
+		}
 	}

@@ -10,17 +10,19 @@ class Product_model extends CI_Model {
 		if(!$this->get_product_by_name($product['product_name'])->status){
 			$data = array (
 					'product_name' => $product['product_name'],
-					'price' => $product['product_price'],
-					'desc' => $product['product_desc'],
+					'price' => $product['price'],
+					'desc' => $product['desc'],
 					'lastModifiedDate' =>date("Y-m-d h:i:sa"),
 					'productImage' => $product['productImage'],
 			);
 			
-			if($product['is_active']== 'true' || $product['is_active']){
+			if($product['is_active']== 'true' || $product['is_active'] || $product['isActive'] == 'on'){
 				$data['isActive'] = 1;
 			}else{
 				$data['isActive'] = 0;
 			}
+			$product['rating'] = 0;
+			$product['rating_count'] = 0;
 			$this->db->insert ( 'product', $data );
 			$result['product_id'] = $this->db->insert_id ();
 			$result['status'] = true;
@@ -121,6 +123,7 @@ class Product_model extends CI_Model {
 		$rowcount = $query->num_rows ();
 		if ($rowcount > 0) {
 			$return = $query->row ();
+			$return->desc = unserialize($return->desc);
 			$return->status = true;
 		} else {
 			$return = new stdClass();

@@ -29,17 +29,18 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 <link rel="stylesheet" href="../assets/css/_all-skins.min.css">
 <link rel="stylesheet" href="../assets/css/style.css">
 
-  <link rel="stylesheet" href="../assets/css/daterangepicker.css">
-  <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="../assets/css/datepicker3.css">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="../assets/css/all.css">
-  <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="../assets/css/bootstrap-colorpicker.min.css">
-  <!-- Bootstrap time Picker -->
-  <link rel="stylesheet" href="../assets/css/bootstrap-timepicker.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="../assets/css/select2.min.css">
+<link rel="stylesheet" href="../assets/css/daterangepicker.css">
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href="../assets/css/datepicker3.css">
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="../assets/css/all.css">
+<!-- Bootstrap Color Picker -->
+<link rel="stylesheet"
+	href="../assets/css/bootstrap-colorpicker.min.css">
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="../assets/css/select2.min.css">
 
 
 
@@ -50,7 +51,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<?php 
+<?php
 
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -104,73 +105,60 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 					</div>
 				</div>
 				<!-- search form -->
-<!-- 				<form action="#" method="get" class="sidebar-form"> -->
-<!-- 					<div class="input-group"> -->
-<!-- 						<input type="text" name="q" class="form-control" -->
-<!-- 							placeholder="Search..."> <span class="input-group-btn"> -->
-<!-- 							<button type="submit" name="search" id="search-btn" -->
-<!-- 								class="btn btn-flat"> -->
-<!-- 								<i class="fa fa-search"></i> -->
-<!-- 							</button> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
+				<!-- 				<form action="#" method="get" class="sidebar-form"> -->
+				<!-- 					<div class="input-group"> -->
+				<!-- 						<input type="text" name="q" class="form-control" -->
+				<!-- 							placeholder="Search..."> <span class="input-group-btn"> -->
+				<!-- 							<button type="submit" name="search" id="search-btn" -->
+				<!-- 								class="btn btn-flat"> -->
+				<!-- 								<i class="fa fa-search"></i> -->
+				<!-- 							</button> -->
+				<!-- 						</span> -->
+				<!-- 					</div> -->
+				<!-- 				</form> -->
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
-					<li class="active treeview"><a href="#"> <i class="fa fa-dashboard"></i>
-							<span>Dashboard</span> 
-<!-- 							<span class="pull-right-container"> <i -->
-<!-- 								class="fa fa-angle-left pull-right"></i> -->
-<!-- 						</span> -->
-					</a>
-						</li>
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>Product Management</span> 
-<!-- 					<span class="pull-right-container"> <span -->
-<!-- 								class="label label-primary pull-right">4</span> -->
-<!-- 						</span> -->
+					<li class="active treeview"><a href="/admin/userhome"> <i class="fa fa-dashboard"></i>
+							<span>Dashboard</span> <!-- 							<span class="pull-right-container"> <i -->
+							<!-- 								class="fa fa-angle-left pull-right"></i> --> <!-- 						</span> -->
+					</a></li>
+					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>Product
+								Management</span> <!-- 					<span class="pull-right-container"> <span -->
+							<!-- 								class="label label-primary pull-right">4</span> -->
+							<!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
 							<li><a href="/admin/addproduct"><i class="fa fa-circle-o"></i>
 									Add New Product</a></li>
 							<li><a href="/admin/manageproduct"><i class="fa fa-circle-o"></i>
 									Manage Products</a></li>
-							
-						</ul>
-					</li>
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>Order Management</span> 
-<!-- 					<span class="pull-right-container"> <span -->
-<!-- 								class="label label-primary pull-right">4</span> -->
-<!-- 						</span> -->
+
+						</ul></li>
+					<li class="treeview"><a href="/admin/manageorder"> <i class="fa fa-files-o"></i> <span>Order
+								Management</span> <!-- 					<span class="pull-right-container"> <span -->
+							<!-- 								class="label label-primary pull-right">4</span> -->
+							<!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>
-									Add New Product</a></li>
-							<li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>
-									Manage Products</a></li>
 							
-						</ul>
-					</li>
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>User Management</span> 
-<!-- 					<span class="pull-right-container"> <span -->
-<!-- 								class="label label-primary pull-right">4</span> -->
-<!-- 						</span> -->
+
+						</ul></li>
+					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i> <span>User
+								Management</span> <!-- 					<span class="pull-right-container"> <span -->
+							<!-- 								class="label label-primary pull-right">4</span> -->
+							<!-- 						</span> -->
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>
-									Add New Product</a></li>
-							<li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>
-									Manage Products</a></li>
-							
-						</ul>
-					</li>
-					
-					
-					
-					
-					
-					
+
+						</ul></li>
+
+
+
+
+
+
 				</ul>
 			</section>
 			<!-- /.sidebar -->
@@ -180,83 +168,111 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>
-					Product Management
-				</h1>
-				
+				<h1>Product Management</h1>
+
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
-				 <!-- general form elements disabled -->
-          <div class="box box-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">Add New Product</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <form role="form" method="post" action="/admin/addProduct">
-                <!-- text input -->
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Enter Product Name" name="product_name">
-                </div>
-               <div class="form-group has-success">
-                  <input type="text" class="form-control" placeholder="Enter Product Description" id="inputSuccess" name="desc">
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Enter material name" name="material">
-                </div>
-               <div class="form-group">
-                <label>Color picker:</label>
-                <input type="text" class="form-control my-colorpicker1" name="color">
-              </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Enter Product Type" name="type">
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Enter Brand Name" name="brand">
-                </div>
-                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Enter price of product" name="price">
-                </div>
-                 <div class="form-group">
-                <select class="form-control select2" data-placeholder="Select Gender" style="width: 100%;" name="gender">
-                <option>-- Select Gender -- </option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
-              </div>
-                     <div class="form-group">
-                <select class="form-control select2" data-placeholder="Select Size" style="width: 100%;" name="size">
-                <option>-- Select Size -- </option>
-                  <option>Small</option>
-                  <option>Medium</option>
-                  <option>Large</option>
-                  <option>Extra Large</option>
-                </select>
-              </div>
-                <div class="form-group">
-                  <label class="select_file">Select Image</label>
-                  <input type="file" id="exampleInputFile" name="imageFile" id="imageFile">
-                </div>
-               <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="isActive"> Is Active?</label>
-                </div>
-<div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-              
+				<!-- general form elements disabled -->
+				
+				<?php if(!empty($result) && $result['status']){ ?>
+				<div class="alert alert-success alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">&times;</button>
+					<h4>
+						<i class="icon fa fa-check"></i> Success!
+					</h4>
+				</div>
+				<?php }else if(!empty($result) && empty($result['status'])){
+					?>
+					<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h4><i class="icon fa fa-ban"></i> Fail!</h4>
+						<?php echo isset($result['msg']) ? $result['msg'] :  "An error occured. Please contact system admin.";?>
+					</div>
+					<?php 
+				}?>
+				<div class="box box-warning">
+					<div class="box-header with-border">
+						<h3 class="box-title">Add New Product</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<form role="form" method="post" action="/admin/addProduct"
+							enctype="multipart/form-data">
+							<!-- text input -->
+							<div class="form-group">
+								<input type="text" class="form-control"
+									placeholder="Enter Product Name" name="product_name">
+							</div>
+							<div class="form-group has-success">
+								<input type="text" class="form-control"
+									placeholder="Enter Product Description" id="inputSuccess"
+									name="desc">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control"
+									placeholder="Enter material name" name="material">
+							</div>
+							<div class="form-group">
+								<label>Color picker:</label> <input type="text"
+									class="form-control" name="color">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control"
+									placeholder="Enter Product Type" name="type">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control"
+									placeholder="Enter Brand Name" name="brand">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control"
+									placeholder="Enter price of product" name="price">
+							</div>
+							<div class="form-group">
+								<select class="form-control select2"
+									data-placeholder="Select Gender" style="width: 100%;"
+									name="gender">
+									<option>-- Select Gender --</option>
+									<option>Male</option>
+									<option>Female</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<select class="form-control select2"
+									data-placeholder="Select Size" style="width: 100%;" name="size">
+									<option>-- Select Size --</option>
+									<option>Small</option>
+									<option>Medium</option>
+									<option>Large</option>
+									<option>Extra Large</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="select_file">Select Image</label> <input
+									type="file" id="exampleInputFile" name="imageFile"
+									id="imageFile">
+							</div>
+							<div class="checkbox">
+								<label> <input type="checkbox" name="isActive"> Is Active?
+								</label>
+							</div>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
 
-                
-                
 
-               
-               
-              </form>
-            </div>
-            <!-- /.box-body -->
-          </div>
+
+
+
+
+
+						</form>
+					</div>
+					<!-- /.box-body -->
+				</div>
 			</section>
 			<!-- /.content -->
 		</div>
@@ -465,31 +481,32 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 	<script src="../assets/js/dashboard2.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="../assets/js/demo.js"></script>
-	
-	
-<script src="../assets/js/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="../assets/js/jquery.inputmask.js"></script>
-<script src="../assets/js/jquery.inputmask.date.extensions.js"></script>
-<script src="../assets/js/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="../assets/js/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="../assets/js/bootstrap-datepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="../assets/js/bootstrap-timepicker.min.js"></script>
-<!-- SlimScroll 1.3.0 -->
-<!-- iCheck 1.0.1 -->
-<script src="../assets/js/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="../assets/js/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../assets/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<!-- Page script -->
+
+
+	<script src="../assets/js/select2.full.min.js"></script>
+	<!-- InputMask -->
+	<script src="../assets/js/jquery.inputmask.js"></script>
+	<script src="../assets/js/jquery.inputmask.date.extensions.js"></script>
+	<script src="../assets/js/jquery.inputmask.extensions.js"></script>
+	<!-- date-range-picker -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+	<script src="../assets/js/daterangepicker.js"></script>
+	<!-- bootstrap datepicker -->
+	<script src="../assets/js/bootstrap-datepicker.js"></script>
+	<!-- bootstrap color picker -->
+	<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
+	<!-- bootstrap time picker -->
+	<script src="../assets/js/bootstrap-timepicker.min.js"></script>
+	<!-- SlimScroll 1.3.0 -->
+	<!-- iCheck 1.0.1 -->
+	<script src="../assets/js/icheck.min.js"></script>
+	<!-- FastClick -->
+	<script src="../assets/js/fastclick.js"></script>
+	<!-- AdminLTE App -->
+	<script src="../assets/js/app.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<!-- Page script -->
 </body>
 
 <script>
