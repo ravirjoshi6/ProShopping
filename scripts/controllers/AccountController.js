@@ -21,8 +21,8 @@
                         },
                         type: 'POST'                       
                     })
-                    .done(function (data) {
-                        console.log(data);
+                    .done(function (data) {                       
+                        alert("Please varify your Email.");
                     })
                 } else {
                     alert("Please accept terms and conditions");
@@ -41,7 +41,7 @@
                 .done(function (data) {
                     data = $.parseJSON(data);
                     if (data.status) {
-                        $('.loginerror span').text("");
+                        $('.loginerror span').text("");                       
                         window.location.replace("/");
                     } else {
                         $('.loginerror span').text("Invalid Email/Password !!");
