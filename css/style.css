@@ -21,6 +21,7 @@ body {
     padding-bottom: 30px;
 }
 
+
 @font-face {
     font-family: 'JosefinSans-Regular';
     src: url(../fonts/JosefinSans-Regular.ttf) format('truetype');
@@ -85,6 +86,7 @@ h1, h2, h3, h4, h5, h6, label, p {
 .top_right {
     float: left;
     color: #ffffff;
+    margin-left: 28px;
 }
 
     .top_right ul, .top_left ul {
@@ -867,6 +869,12 @@ ul.tabs-menu {
 .products-row a:hover {
     text-decoration: none;
 }
+
+.row ul {
+    width: 94%;
+    margin: auto;
+}
+
 
 .product-img img {
     width: 100%;
